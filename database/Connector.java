@@ -10,15 +10,11 @@ import java.util.ArrayList;
 /**
  * @author Andriy
  * @see Connector Клас спроектований по шаблону Singleton
- * dsfsdfsd
- * sdfsdfsdf
- * dfsdf
- * sdf
- * sdf
- * sdf
- * sdf
- * sdf
- * sdf
+ * 11111
+ * 1111
+ * 111
+ * 11
+ * 1a
  */
 
 public class Connector {
