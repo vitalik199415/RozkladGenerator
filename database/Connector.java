@@ -12,6 +12,13 @@ import java.util.ArrayList;
  * @see Connector Клас спроектований по шаблону Singleton
  * dsfsdfsd
  * sdfsdfsdf
+ * dfsdf
+ * sdf
+ * sdf
+ * sdf
+ * sdf
+ * sdf
+ * sdf
  */
 
 public class Connector {
