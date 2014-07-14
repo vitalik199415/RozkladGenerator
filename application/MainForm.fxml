@@ -16,11 +16,11 @@
 <TextField fx:id="fac_name" layoutX="94.74609375" layoutY="35.5" />
 <TextField fx:id="fac_short" layoutX="95.0" layoutY="67.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 <Button fx:id="fac_save" layoutX="33.0" layoutY="147.0" mnemonicParsing="false" onAction="#FacSaveClick" prefHeight="25.0" prefWidth="94.0" text="Save" />
-<Button layoutX="154.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Cancel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Button fx:id="fac_clear" layoutX="154.0" layoutY="147.0" mnemonicParsing="false" onAction="#FacClearClick" prefHeight="25.0" prefWidth="106.0" text="Clear" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 <Text layoutX="42.931640625" layoutY="52.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Назва" />
 <Text layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Скорочення" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 <Text layoutX="275.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Напр.: Факультет програмної інженерії" wrappingWidth="291.212890625" />
-<Text layoutX="275.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Напр.: ПІ або ФПІ" wrappingWidth="291.212890625" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="275.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Напр.: ПІ або ФПІ" wrappingWidth="291.212890625" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><ListView id="ListFaculty" fx:id="FacultyList" layoutX="531.0" layoutY="36.0" prefHeight="378.0" prefWidth="222.0" />
 </children></AnchorPane>
       </content>
     </Tab>
