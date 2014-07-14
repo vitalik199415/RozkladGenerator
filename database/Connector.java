@@ -47,6 +47,7 @@ public class Connector {
 				+ timeout + "ms");
 
 	}
+	
 
 	/**
 	 * Метод повертає екземпляр класу Connector як це передбачає шаблон
@@ -341,6 +342,7 @@ public class Connector {
 			this.ps = null;
 			arr = null;
 		}
+		
 
 		return arr;
 
