@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<children><VBox layoutX="182.0" layoutY="36.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<children><TabPane fx:id="tabPanel" prefHeight="473.0" prefWidth="712.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml">
+  <tabs>
+    <Tab text="Факультет">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="600.0">
+<children>
+<TextField fx:id="fac_name" layoutX="94.74609375" layoutY="35.5" />
+<TextField fx:id="fac_short" layoutX="95.0" layoutY="67.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Button fx:id="fac_save" layoutX="33.0" layoutY="147.0" mnemonicParsing="false" onAction="#FacSaveClick" prefHeight="25.0" prefWidth="94.0" text="Save" />
+<Button layoutX="154.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Cancel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="42.931640625" layoutY="52.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Назва" />
+<Text layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Скорочення" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="275.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Напр.: Факультет програмної інженерії" wrappingWidth="291.212890625" />
+<Text layoutX="275.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Напр.: ПІ або ФПІ" wrappingWidth="291.212890625" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+</children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Групи">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children><TextField fx:id="group_name" layoutX="134.0" layoutY="23.0" />
+<TextField fx:id="group_count_stud" layoutX="134.0" layoutY="63.0" />
+<ComboBox fx:id="group_fac_name_combo" layoutX="134.0" layoutY="143.0" prefWidth="150.0" xmlns:fx="http://javafx.com/fxml" />
+<Button fx:id="group_save" layoutX="57.0" layoutY="222.0" mnemonicParsing="false" onAction="#GroupSaveClick" prefHeight="25.0" prefWidth="104.0" text="Save" />
+<Button layoutX="263.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
+<ComboBox fx:id="group_fac_id_combo" disable="true" layoutX="322.0" layoutY="143.0" prefWidth="150.0" xmlns:fx="http://javafx.com/fxml" />
+<Text layoutX="77.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Назва" />
+<Text layoutX="36.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="К-сть студентів" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="62.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Факультет" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+</children></AnchorPane>
+      </content>
+    </Tab>
+<Tab text="Викладачі" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<content>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children>
+<TextField fx:id="teach_surname" layoutX="163.0" layoutY="35.0" />
+<TextField fx:id="teach_name" layoutX="163.0" layoutY="72.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<TextField fx:id="teach_f_name" layoutX="163.0" layoutY="107.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<TextField fx:id="teach_tel" layoutX="163.0" layoutY="142.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><Button fx:id="teach_save" layoutX="76.0" layoutY="276.0" mnemonicParsing="false" onAction="#TeachSaveClick" prefHeight="25.0" prefWidth="96.0" text="Save" />
+<Button layoutX="227.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Cancel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="60.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Прізкище" />
+<Text layoutX="60.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ім'я" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="60.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="По-батькові" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="60.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тел." xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+</children></AnchorPane>
+</content>
+</Tab>
+<Tab text="Предмети" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<content>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children>
+<TextField fx:id="subj_name" layoutX="149.74609375" layoutY="29.5" />
+<TextField fx:id="subj_short" layoutX="150.0" layoutY="69.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<TextField fx:id="subj_hour" layoutX="150.0" layoutY="106.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<ComboBox fx:id="subj_teacher_name_combo" layoutX="149.24609375" layoutY="143.0" prefWidth="150.0" xmlns:fx="http://javafx.com/fxml" />
+<CheckBox fx:id="subj_is_lection" layoutX="150.2890625" layoutY="181.0" mnemonicParsing="false" selected="true" />
+<Button fx:id="subj_save" layoutX="97.0" layoutY="220.0" mnemonicParsing="false" onAction="#SubjSaveClick" prefHeight="29.0" prefWidth="173.0" text="Save" />
+<Button layoutX="274.0" layoutY="220.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="165.0" text="Cancel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<ComboBox fx:id="subj_teacher_id_combo" layoutX="334.0" layoutY="143.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><Text layoutX="96.931640625" layoutY="46.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Назва" />
+<Text layoutX="63.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Скорочення" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="65.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="К-сть годин" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="82.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Викладач" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Text layoutX="82.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Лекція?" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+</children></AnchorPane>
+</content>
+</Tab>
+<Tab text="Аудиторії" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<content>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children>
+<TextField fx:id="room_name" layoutX="150.74609375" layoutY="53.5" />
+<CheckBox fx:id="room_is_laboratory" layoutX="151.03515625" layoutY="92.0" mnemonicParsing="false" text="CheckBox" />
+<Button fx:id="room_save" layoutX="50.0" layoutY="152.0" mnemonicParsing="false" onAction="#RoomSaveClick" prefHeight="25.0" prefWidth="127.0" text="Save" />
+<Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Cancel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><Text layoutX="101.931640625" layoutY="70.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Назва" />
+<Text layoutX="42.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Чи лабораторія?" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+</children></AnchorPane>
+</content>
+</Tab>
+<Tab text="Предмети груп" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<content>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children><ListView fx:id="groupList" layoutX="14.0" layoutY="40.0" prefHeight="322.0" prefWidth="117.0" />
+<ListView fx:id="selectSubjectsList" layoutX="154.0" layoutY="40.0" prefHeight="322.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<ListView fx:id="allSubjectList" layoutX="411.0" layoutY="40.0" prefHeight="322.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Button fx:id="addSubjectToList" layoutX="360.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="&lt;--" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Button fx:id="removeSubjectFromList" layoutX="360.0" layoutY="176.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="--&gt;" />
+<Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Група" />
+<Text layoutX="411.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Перелік предметів" />
+<Text layoutX="154.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Вибрані предмети" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+</children>
+</AnchorPane>
+</content>
+</Tab>
+  </tabs>
+</TabPane>
+</children></VBox>
+</children></AnchorPane>
