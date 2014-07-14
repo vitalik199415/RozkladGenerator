@@ -10,6 +10,9 @@ import java.util.ArrayList;
 /**
  * @author Andriy
  * @see Connector Клас спроектований по шаблону Singleton
+ * 2
+ * 2
+ * 2
  */
 
 public class Connector {
