@@ -47,7 +47,6 @@ public class Connector {
 				+ timeout + "ms");
 
 	}
-	
 
 	/**
 	 * Метод повертає екземпляр класу Connector як це передбачає шаблон
@@ -318,62 +317,7 @@ public class Connector {
 		return arr;
 	}
 
-	public ArrayList<String> getSubjectList() {
-
-		ArrayList<String> arr;
-
-		final String GET_SUBJECT_LIST = "SELECT subj_name, subj_short FROM subject WHERE true";
-		try {
-			this.ps = this.db.prepareStatement(GET_SUBJECT_LIST);
-			this.rs = this.ps.executeQuery();
-
-			arr = new ArrayList<String>();
-			while (this.rs.next()) {
-				arr.add(rs.getString("subj_name").trim() + " ("
-						+ rs.getString("subj_short").trim() + ")");
-			}
-			System.out.println(GET_SUBJECT_LIST + " Succesfull!");
-			return arr;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println(GET_SUBJECT_LIST + " FALLING DOWN!!!");
-		} finally {
-			this.rs = null;
-			this.ps = null;
-			arr = null;
-		}
-		
-
-		return arr;
-
-	}
-
-	public ArrayList<Integer> getSubjectIdList() {
-
-		ArrayList<Integer> arr;
-
-		final String GET_GROUP_ID_LIST = "SELECT subj_id FROM subject WHERE true";
-		try {
-			this.ps = this.db.prepareStatement(GET_GROUP_ID_LIST);
-			this.rs = this.ps.executeQuery();
-
-			arr = new ArrayList<Integer>();
-			while (this.rs.next()) {
-				arr.add(rs.getInt("subj_id"));
-			}
-			System.out.println(GET_GROUP_ID_LIST + " Succesfull!");
-			return arr;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println(GET_GROUP_ID_LIST + " FALLING DOWN!!!");
-		} finally {
-			this.rs = null;
-			this.ps = null;
-			arr = null;
-		}
-
-		return arr;
-	}
+	
 
 	/**
 	 * class ConnectionInstanceHolder Призначений для захисту екземпляра класу
