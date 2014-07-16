@@ -9,10 +9,7 @@ import java.util.ArrayList;
 
 /**
  * @author Andriy
- * @see Connector Клас спроектований по шаблону Singleton
- * 2
- * 2
- * 2
+ * @see Connector Singleton
  */
 
 public class Connector {
@@ -32,13 +29,13 @@ public class Connector {
 
 		long timeout = System.currentTimeMillis();
 
-		// Регістрація драйвера
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		try {
 			Class.forName(DRIVER_NAME);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		// Підключення до бд
+		// ПіпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
 		try {
 			this.db = DriverManager.getConnection(URL, USER, PASS);
 		} catch (SQLException e) {
@@ -52,7 +49,7 @@ public class Connector {
 	}
 
 	/**
-	 * Метод повертає екземпляр класу Connector як це передбачає шаблон
+	 * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Connector пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	 * Singleton
 	 * 
 	 * @return Connector instance
@@ -266,6 +263,7 @@ public class Connector {
 
 	}
 
+	
 	public ArrayList<String> getGroupList() {
 
 		ArrayList<String> arr;
@@ -319,12 +317,94 @@ public class Connector {
 
 		return arr;
 	}
-
 	
+	public ArrayList<Integer> getSubjectIdList() {
 
+		ArrayList<Integer> arr;
+
+		final String GET_SUBJECT_ID_LIST = "SELECT subj_id FROM subject WHERE true";
+		try {
+			this.ps = this.db.prepareStatement(GET_SUBJECT_ID_LIST);
+			this.rs = this.ps.executeQuery();
+
+			arr = new ArrayList<Integer>();
+			while (this.rs.next()) {
+				arr.add(rs.getInt("subj_id"));
+			}
+			System.out.println(GET_SUBJECT_ID_LIST + " Succesfull!");
+			return arr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_SUBJECT_ID_LIST + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+			arr = null;
+		}
+
+		return arr;
+	}
+
+	public ArrayList<String> getAllSubjectList(){
+
+		ArrayList<String> arr;
+
+		final String GET_All_SUBJECTS_LIST = "SELECT subj_name FROM subject WHERE true";
+		try {
+			this.ps = this.db.prepareStatement(GET_All_SUBJECTS_LIST);
+			this.rs = this.ps.executeQuery();
+
+			arr = new ArrayList<String>();
+			while (this.rs.next()) {
+				arr.add(rs.getString("subj_name").trim());
+			}
+			System.out.println(GET_All_SUBJECTS_LIST + " Succesfull!");
+			return arr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_All_SUBJECTS_LIST + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+			arr = null;
+		}
+
+		return arr;
+		
+	}
+	
+	public ArrayList<Integer> getSubjectsIdByIdGroup(int _id){
+		
+		ArrayList<Integer> arr;
+		
+		final String GET_SUBJ_ID_BY_ID_GROUP = "SELECT subj_id FROM subject, subjet_group, \"group\" "
+											+ "WHERE (group_subject_id_group = "+_id+") and "
+												+ "(group_subject_id_subject = subj_id) and "
+												+ "(group_subject_id_group = group_id)";
+		try{
+			this.ps = db.prepareStatement(GET_SUBJ_ID_BY_ID_GROUP);
+			this.ps.execute();
+			arr = new ArrayList<Integer>();
+			while (rs.next()){
+				arr.add(rs.getInt("subj_id"), null);
+			}
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			this.ps = null;
+			this.rs = null;
+			arr = null;
+			
+		}
+		
+		return arr;
+		
+	}
+	
 	/**
-	 * class ConnectionInstanceHolder Призначений для захисту екземпляра класу
-	 * Connection від багаторазового створення при багатопотоковому виконанні
+	 * class ConnectionInstanceHolder пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	 * Connection пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 */
 	static class ConnectionInstanceHolder {
 		private static final Connector conn = new Connector();
