@@ -1,29 +1,20 @@
 package application;
 
+import database.Connector;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.swing.JOptionPane;
-
-import org.omg.CORBA.portable.IDLEntity;
-
-import com.sun.glass.events.MouseEvent;
-import com.sun.javafx.scene.control.SelectedCellsMap;
-
-import database.Connector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -59,11 +50,11 @@ public class MainController implements Initializable {
 	@FXML private TextField 		subj_hour;
 	@FXML private ComboBox<String> 	subj_teacher_name_combo;
 	@FXML private ComboBox<Integer> subj_teacher_id_combo;
-	@FXML private CheckBox 			subj_is_lection;
+	@FXML private RadioButton		subj_is_lection;
 	@FXML private Button 			subj_save;
 
 	@FXML private TextField 		room_name;
-	@FXML private CheckBox 			room_is_laboratory;
+	@FXML private RadioButton		room_is_laboratory;
 	@FXML private Button 			room_save;
 
 	@FXML private ListView<String> 	groupList;
@@ -73,15 +64,13 @@ public class MainController implements Initializable {
 	@FXML private Button 			addSubjectToList; 
 	@FXML private Button 			removeSubjectFromList; 
 	
-	
-	
 	private ArrayList<Integer> 		idGroupList = new ArrayList<Integer>();
 	private ArrayList<Integer> 		idSelectedSubjectList = new ArrayList<Integer>();
 	private ArrayList<Integer> 		idAllSubjectList = new ArrayList<Integer>();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		addSubjectToList.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -176,25 +165,6 @@ public class MainController implements Initializable {
 					index++;
 				}
 			}
-//			
-//			if (idSelectedSubjectList.size() < idAllSubjectList.size()){
-//				for (int i=0; i < idSelectedSubjectList.size(); i++){
-//					if (idSelectedSubjectList.get(i) == idAllSubjectList.get(i)){
-//						allSubjectList.getItems().remove(i);
-//						idAllSubjectList.remove(i);
-//						
-//					} 
-//				}
-//			} else {
-//				for(Integer row: idAllSubjectList){
-//					if (row == idSelectedSubjectList.get(index)){
-//						selectSubjectsList.getItems().remove(index);
-//						idSelectedSubjectList.remove(index);
-//					} 
-//					index++;
-//				}
-//			}
-//			
 		}
 	}
 		

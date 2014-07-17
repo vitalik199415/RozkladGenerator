@@ -3,6 +3,7 @@ package pojo;
 public class Generic {
 	
 	
+	
 	private int fitness(){
 		
 		

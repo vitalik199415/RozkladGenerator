@@ -9,10 +9,7 @@ import java.util.ArrayList;
 
 /**
  * @author Andriy
- * @see Connector Singleton
- * 2
- * 2
- * 2
+ * @class Connector designed as Singleton
  */
 
 public class Connector {
@@ -24,37 +21,28 @@ public class Connector {
 	private ResultSet rs;
 
 	private final String DRIVER_NAME = "org.postgresql.Driver";
-	private final String URL = "jdbc:postgresql://localhost/DBRozkladGenerator";
+	private final String URL = "jdbc:postgresql://localhost:5433/DBRozkladGenerator";
 	private final String USER = "postgres";
 	private final String PASS = "root";
 
 	private Connector() {
-
 		long timeout = System.currentTimeMillis();
-
-		// ���������� ��������
 		try {
 			Class.forName(DRIVER_NAME);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		// ϳ��������� �� ��
 		try {
 			this.db = DriverManager.getConnection(URL, USER, PASS);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		timeout = System.currentTimeMillis() - timeout;
 		System.out.println("user:" + USER + " connected to db.. " + "timeout: "
 				+ timeout + "ms");
-
 	}
 
 	/**
-	 * ����� ������� ��������� ����� Connector �� �� ��������� ������
-	 * Singleton
-	 * 
 	 * @return Connector instance
 	 */
 	public static Connector getConnection() {
