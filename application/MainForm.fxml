@@ -89,7 +89,7 @@
 <Tab text="Предмети груп" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <content>
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-<children><ListView fx:id="groupList" layoutX="14.0" layoutY="40.0" prefHeight="322.0" prefWidth="117.0" />
+<children><ListView fx:id="groupList" editable="true" layoutX="14.0" layoutY="40.0" onMouseClicked="#GroupListClick" prefHeight="322.0" prefWidth="117.0" />
 <ListView fx:id="selectSubjectsList" layoutX="154.0" layoutY="40.0" prefHeight="322.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 <ListView fx:id="allSubjectList" layoutX="411.0" layoutY="40.0" prefHeight="322.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 <Button fx:id="addSubjectToList" layoutX="360.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="&lt;--" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />

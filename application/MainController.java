@@ -3,9 +3,19 @@ package application;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
+import org.omg.CORBA.portable.IDLEntity;
+
+import com.sun.glass.events.MouseEvent;
+import com.sun.javafx.scene.control.SelectedCellsMap;
+
 import database.Connector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -59,24 +69,56 @@ public class MainController implements Initializable {
 	@FXML private ListView<String> 	groupList;
 	@FXML private ListView<String> 	selectSubjectsList;
 	@FXML private ListView<String> 	allSubjectList;
-
-
-	private ArrayList<Integer> 		idGroupList = new ArrayList();
-	private ArrayList<Integer> 		idSelectedSubjectList = new ArrayList();
-	private ArrayList<Integer> 		idAllSubjectList = new ArrayList();
-
+	
+	@FXML private Button 			addSubjectToList; 
+	@FXML private Button 			removeSubjectFromList; 
+	
+	
+	
+	private ArrayList<Integer> 		idGroupList = new ArrayList<Integer>();
+	private ArrayList<Integer> 		idSelectedSubjectList = new ArrayList<Integer>();
+	private ArrayList<Integer> 		idAllSubjectList = new ArrayList<Integer>();
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		addSubjectToList.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (allSubjectList.getSelectionModel().getSelectedIndex() ==  -1)
+					return;
+				conn.addNewSubject_group(idGroupList.get(groupList.getSelectionModel().getSelectedIndex()), idAllSubjectList.get(allSubjectList.getSelectionModel().getSelectedIndex()));
+
+				idSelectedSubjectList.add(idAllSubjectList.get(allSubjectList.getSelectionModel().getSelectedIndex()));
+				selectSubjectsList.getItems().add(allSubjectList.getSelectionModel().getSelectedItem());
+				
+				idAllSubjectList.remove(allSubjectList.getSelectionModel().getSelectedIndex());
+				allSubjectList.getItems().remove(allSubjectList.getSelectionModel().getSelectedIndex());
+			}
+		});
+		
+		removeSubjectFromList.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (selectSubjectsList.getSelectionModel().getSelectedIndex() ==  -1)
+					return;
+				conn.removeSubjectGroup(idGroupList.get(groupList.getSelectionModel().getSelectedIndex()), idSelectedSubjectList.get(selectSubjectsList.getSelectionModel().getSelectedIndex()));
+				
+				allSubjectList.getItems().add(selectSubjectsList.getSelectionModel().getSelectedItem());
+				idAllSubjectList.add(idSelectedSubjectList.get(selectSubjectsList.getSelectionModel().getSelectedIndex()));
+				
+				idSelectedSubjectList.remove(selectSubjectsList.getSelectionModel().getSelectedIndex());
+				selectSubjectsList.getItems().remove(selectSubjectsList.getSelectionModel().getSelectedIndex());
+			}
+		});
 		
 		tabPanel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-				if (oldValue != newValue) {
 					updateComboBoxes();
 					updateFacultetList();
-				}
-				if (newValue == tabPanel.getTabs().get(tabPanel.getTabs().size() - 1)) {
 					
+				if (newValue == tabPanel.getTabs().get(tabPanel.getTabs().size() - 1)) {
 					groupList.getItems().clear();
 					idGroupList.clear();
 					groupList.getItems().addAll(conn.getGroupList());
@@ -85,8 +127,7 @@ public class MainController implements Initializable {
 					allSubjectList.getItems().clear();
 					idAllSubjectList.clear();
 					allSubjectList.getItems().addAll(conn.getAllSubjectList());
-					idAllSubjectList.addAll(conn.getSubjectIdList());
-					
+					idAllSubjectList.addAll(conn.getAllSubjectIdList());
 				}
 			}
 		});
@@ -104,12 +145,59 @@ public class MainController implements Initializable {
 				subj_teacher_id_combo.getSelectionModel().select(subj_teacher_name_combo.getSelectionModel().getSelectedIndex());
 			}
 		});
-
+		
 		this.updateComboBoxes();
 		this.updateFacultetList();
-
 	}
 
+	public void GroupListClick(){
+		if (groupList.getSelectionModel().getSelectedIndex() != -1){
+			
+			allSubjectList.getItems().clear();
+			idAllSubjectList.clear();
+			
+			allSubjectList.getItems().addAll(conn.getAllSubjectList());
+			idAllSubjectList.addAll(conn.getAllSubjectIdList());
+			
+			selectSubjectsList.getItems().clear();
+			idSelectedSubjectList.clear();
+			
+			selectSubjectsList.getItems().addAll(conn.getSubjectsNameByIdGroup(idGroupList.get(groupList.getSelectionModel().getSelectedIndex())));
+			idSelectedSubjectList.addAll(conn.getSubjectsIdByIdGroup(idGroupList.get(groupList.getSelectionModel().getSelectedIndex())));
+			int index;
+			for (Integer idSelectItem: idSelectedSubjectList){
+				index = 0;
+				for (Integer idAllItem: idAllSubjectList){
+					if (idSelectItem == idAllItem){
+						allSubjectList.getItems().remove(index);
+						idAllSubjectList.remove(index);
+						break;
+					}
+					index++;
+				}
+			}
+//			
+//			if (idSelectedSubjectList.size() < idAllSubjectList.size()){
+//				for (int i=0; i < idSelectedSubjectList.size(); i++){
+//					if (idSelectedSubjectList.get(i) == idAllSubjectList.get(i)){
+//						allSubjectList.getItems().remove(i);
+//						idAllSubjectList.remove(i);
+//						
+//					} 
+//				}
+//			} else {
+//				for(Integer row: idAllSubjectList){
+//					if (row == idSelectedSubjectList.get(index)){
+//						selectSubjectsList.getItems().remove(index);
+//						idSelectedSubjectList.remove(index);
+//					} 
+//					index++;
+//				}
+//			}
+//			
+		}
+	}
+		
 	private void updateComboBoxes() {
 
 		group_fac_name_combo.getItems().clear();
