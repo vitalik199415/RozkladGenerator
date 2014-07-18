@@ -25,4 +25,11 @@ public class Room {
 		this.count_seating = count_seating;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return (this.id + "\t" + this.name+ "\t" +this.count_seating + "\n");
+	}
+		
+	
 }

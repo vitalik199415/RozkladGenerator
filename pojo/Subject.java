@@ -2,10 +2,11 @@ package pojo;
 
 public class Subject{
 	
-	private int 	id;
-	private String 	name; 		
-	private String 	short_name; 
-	private int 	count_hour; 
+	private int 				id;
+	private String 				name; 		
+	private String 				shortName; 
+	private int 				countHour; 
+	private Boolean 			isLection;
 	
 	public int getId() {
 		return id;
@@ -19,17 +20,24 @@ public class Subject{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getShort_name() {
-		return short_name;
+	public String getShortName() {
+		return shortName;
 	}
-	public void setShort_name(String short_name) {
-		this.short_name = short_name;
+	public void setShortName(String short_name) {
+		this.shortName = short_name;
 	}
-	public int getCount_hour() {
-		return count_hour;
+	public int getCountHour() {
+		return countHour;
 	}
-	public void setCount_hour(int count_hour) {
-		this.count_hour = count_hour;
+	public void setCountHour(int count_hour) {
+		this.countHour = count_hour;
 	}
+	public Boolean getIsLection() {
+		return isLection;
+	}
+	public void setIsLection(Boolean isLection) {
+		this.isLection = isLection;
+	}
+	
 
 }

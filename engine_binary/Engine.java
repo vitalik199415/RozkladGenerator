@@ -2,6 +2,7 @@ package engine_binary;
 
 import database.*;
 import pojo.*;
+import tools.TimeTable;
 
 import java.util.ArrayList;
 
@@ -23,13 +24,21 @@ public class Engine {
 	final byte THURSDAY 	= 8;	//00001000
 	final byte FRIDAY 		= 16;	//00010000
 	
+	private final Connector 	conn = Connector.getConnection();
+	
 	private ArrayList<Room> 	roomArray;
 	private ArrayList<Teacher> 	teachArray;
 	private ArrayList<Subject> 	subjArray;
 	private ArrayList<Group> 	groupArray;
 	
-	private void traceDatabaseIntoBinary(){
+	private ArrayList<TimeTable> timeTable;
+	
+	public void traceDatabaseIntoBinary(){
 		
+		this.roomArray 	= new ArrayList<Room>	(conn.getRoomList	());
+		this.teachArray = new ArrayList<Teacher>(conn.getTeacherList());
+		this.subjArray 	= new ArrayList<Subject>(conn.getSubjectList());
+		this.groupArray = new ArrayList<Group>	(conn.getAllGroupList());
 		
 		
 	}

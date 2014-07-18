@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import pojo.*;
+
 /**
  * @author Andriy
  * @class Connector designed as Singleton
@@ -121,7 +123,7 @@ public class Connector {
 
 	public ArrayList<String> getFacultetList() {
 		ArrayList<String> arr = new ArrayList<String>();
-		final String GET_FACULTY_NAMES_LIST = "SELECT * FROM faculty WHERE true";
+		final String GET_FACULTY_NAMES_LIST = "SELECT * FROM faculty ";
 		try {
 			this.ps = this.db.prepareStatement(GET_FACULTY_NAMES_LIST);
 			this.rs = this.ps.executeQuery();
@@ -143,7 +145,7 @@ public class Connector {
 
 	public ArrayList<Integer> getFacultetIdList() {
 		ArrayList<Integer> arr = new ArrayList<Integer>();
-		final String GET_FACULTY_ID_LIST = "SELECT fac_id FROM faculty WHERE true";
+		final String GET_FACULTY_ID_LIST = "SELECT fac_id FROM faculty ";
 		try {
 			this.ps = this.db.prepareStatement(GET_FACULTY_ID_LIST);
 			this.rs = this.ps.executeQuery();
@@ -164,7 +166,7 @@ public class Connector {
 
 	public ArrayList<String> getTeachersList() {
 		ArrayList<String> arr = new ArrayList<String>();
-		final String GET_TEACHERS_LIST = "SELECT teach_name, teach_surname, teach_father_name FROM teacher WHERE true";
+		final String GET_TEACHERS_LIST = "SELECT teach_name, teach_surname, teach_father_name FROM teacher ";
 		try {
 			this.ps = this.db.prepareStatement(GET_TEACHERS_LIST);
 			this.rs = this.ps.executeQuery();
@@ -189,7 +191,7 @@ public class Connector {
 
 		ArrayList<Integer> arr = new ArrayList<Integer>();
 
-		final String GET_TEACHERS_ID_LIST = "SELECT teach_id FROM teacher WHERE true";
+		final String GET_TEACHERS_ID_LIST = "SELECT teach_id FROM teacher ";
 		try {
 			this.ps = this.db.prepareStatement(GET_TEACHERS_ID_LIST);
 			this.rs = this.ps.executeQuery();
@@ -211,7 +213,7 @@ public class Connector {
 	
 	public ArrayList<String> getGroupList() {
 		ArrayList<String> arr;
-		final String GET_GROUP_LIST = "SELECT group_name FROM \"group\" WHERE true";
+		final String GET_GROUP_LIST = "SELECT group_name FROM \"group\" ";
 		try {
 			this.ps = this.db.prepareStatement(GET_GROUP_LIST);
 			this.rs = this.ps.executeQuery();
@@ -236,7 +238,7 @@ public class Connector {
 
 	public ArrayList<Integer> getGroupIdList() {
 		ArrayList<Integer> arr;
-		final String GET_GROUP_ID_LIST = "SELECT group_id FROM \"group\" WHERE true";
+		final String GET_GROUP_ID_LIST = "SELECT group_id FROM \"group\" ";
 		try {
 			this.ps = this.db.prepareStatement(GET_GROUP_ID_LIST);
 			this.rs = this.ps.executeQuery();
@@ -260,7 +262,7 @@ public class Connector {
 	
 	public ArrayList<Integer> getAllSubjectIdList() {
 		ArrayList<Integer> arr = new ArrayList<Integer>();
-		final String GET_SUBJECT_ID_LIST = "SELECT subj_id FROM subject WHERE true";
+		final String GET_SUBJECT_ID_LIST = "SELECT subj_id FROM subject ";
 		try {
 			this.ps = this.db.prepareStatement(GET_SUBJECT_ID_LIST);
 			this.rs = this.ps.executeQuery();
@@ -281,13 +283,15 @@ public class Connector {
 
 	public ArrayList<String> getAllSubjectList(){
 		ArrayList<String> arr = new ArrayList<String>();
-		final String GET_All_SUBJECTS_LIST = "SELECT subj_name, subj_short FROM subject WHERE true";
+		final String GET_All_SUBJECTS_LIST = "SELECT subj_name, subj_short, subj_is_lection FROM subject ORDER BY subj_short";
 		try {
 			this.ps = this.db.prepareStatement(GET_All_SUBJECTS_LIST);
 			this.rs = this.ps.executeQuery();
-
+			String isLab;
 			while (this.rs.next()) {
-				arr.add(rs.getString("subj_name").trim()+" ("+rs.getString("subj_short").trim()+")");
+				isLab = rs.getBoolean("subj_is_lection") ? " À‡·." : "";
+
+				arr.add(rs.getString("subj_name").trim()+" ("+rs.getString("subj_short").trim()+")"+isLab);
 			}
 			System.out.println(GET_All_SUBJECTS_LIST + " Succesfull!");
 			return arr;
@@ -328,15 +332,17 @@ public class Connector {
 	public ArrayList<String> getSubjectsNameByIdGroup(int _id){
 		
 		ArrayList<String> arr = new ArrayList<String>();
-		final String GET_SUBJ_NAME_BY_ID_GROUP = "SELECT subj_name, subj_short FROM subject, subject_group, \"group\" "
+		final String GET_SUBJ_NAME_BY_ID_GROUP = "SELECT subj_name, subj_short, subj_is_lection FROM subject, subject_group, \"group\" "
 											+ "WHERE (subj_group_id_group = "+_id+") and "
 												+ "(subj_group_id_subject = subj_id) and "
-												+ "(subj_group_id_group = group_id)";
+												+ "(subj_group_id_group = group_id) ORDER BY subj_name";
 		try{
 			this.ps = db.prepareStatement(GET_SUBJ_NAME_BY_ID_GROUP);
 			this.rs = this.ps.executeQuery();
+			String isLab;
 			while (rs.next()){
-				arr.add(rs.getString("subj_name").trim()+" ("+rs.getString("subj_short").trim()+")");
+				isLab = rs.getBoolean("subj_is_lection") ? " À‡·." : "";
+				arr.add(rs.getString("subj_name").trim()+" ("+rs.getString("subj_short").trim()+")"+isLab);
 			}
 			System.out.println(GET_SUBJ_NAME_BY_ID_GROUP + " Succesfull!");
 			return arr;
@@ -348,7 +354,6 @@ public class Connector {
 			this.rs = null;
 		}
 		return arr;
-		
 	}
 	
 	public void addNewSubject_group(int _idGroup, int _idSubject){
@@ -375,6 +380,135 @@ public class Connector {
 			e.printStackTrace();
 			System.out.println(QUERY_DELETE_FROM_SUBJ_GROUP + " ERROR!!!");
 		}
+	}
+	
+	
+	public ArrayList<Room> getRoomList(){
+		ArrayList<Room> arr = new ArrayList<Room>();
+		Room someRoom;
+		
+		final String GET_All_ROOM_LIST = "SELECT * FROM room";
+		try {
+			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someRoom = new Room();
+				someRoom.setId(rs.getInt("room_id"));
+				someRoom.setName(rs.getString("room_name").trim());
+				someRoom.setCount_seating(rs.getInt("room_count_seating"));
+				arr.add(someRoom);
+				someRoom = null;
+			}
+			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
+			return arr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_All_ROOM_LIST + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+		}
+		return arr;
+	}
+	
+	public ArrayList<Teacher> getTeacherList(){
+		ArrayList<Teacher> arr = new ArrayList<Teacher>();
+		Teacher someTeacher;
+		
+		final String GET_All_ROOM_LIST = "SELECT * FROM teacher";
+		try {
+			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someTeacher = new Teacher();
+				someTeacher.setId(rs.getInt("teach_id"));
+				someTeacher.setSurname(rs.getString("teach_surname").trim());
+				someTeacher.setName(rs.getString("teach_name").trim());
+				someTeacher.setFName(rs.getString("teach_father_name").trim());
+				arr.add(someTeacher);
+				someTeacher = null;
+			}
+			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
+			return arr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_All_ROOM_LIST + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+		}
+		return arr;
+	}
+	
+	public ArrayList<Subject> getSubjectList(){
+		ArrayList<Subject> arr = new ArrayList<Subject>();
+		Subject someSubj;
+		
+		final String GET_All_ROOM_LIST = "SELECT * FROM subject";
+		try {
+			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someSubj = new Subject();
+				someSubj.setId(rs.getInt("subj_id"));
+				someSubj.setName(rs.getString("subj_name").trim());
+				someSubj.setShortName(rs.getString("subj_short").trim());
+				someSubj.setCountHour(rs.getInt("subj_count_hour"));
+				someSubj.setIsLection(rs.getBoolean("subj_is_lection"));
+				arr.add(someSubj);
+				someSubj = null;
+			}
+			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
+			return arr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_All_ROOM_LIST + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+		}
+		return arr;
+	}
+	
+	public ArrayList<Group> getAllGroupList(){
+		ArrayList<Group> arr = new ArrayList<Group>();
+		Group someGroup;
+		
+		final String GET_All_ROOM_LIST = "SELECT * FROM \"group\" ";
+		final String SQL = "SELECT room_id FROM room WHERE (room_count_seating >= %d)";
+		try {
+			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someGroup = new Group();
+				
+				someGroup.setId(rs.getInt("group_id"));
+				someGroup.setName(rs.getString("group_name").trim());
+				someGroup.setCountStud(rs.getInt("group_count_stud"));
+
+				String getPossibleRooms = String.format(SQL, someGroup.getId());
+				PreparedStatement stm = this.db.prepareStatement(getPossibleRooms);
+				ResultSet reSet =  stm.executeQuery();
+				
+				while (reSet.next()) {
+					someGroup.getPossibleRoom().add(reSet.getInt("room_id"));
+				}
+				
+				stm = null;
+				reSet = null;
+				arr.add(someGroup);
+				someGroup = null;
+			}
+			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
+			return arr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_All_ROOM_LIST + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+		}
+		return arr;
 	}
 	
 	

@@ -90,17 +90,23 @@
 <Tab text="Предмети груп" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <content>
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-<children><ListView fx:id="groupList" editable="true" layoutX="14.0" layoutY="40.0" onMouseClicked="#GroupListClick" prefHeight="322.0" prefWidth="117.0" />
-<ListView fx:id="selectSubjectsList" layoutX="154.0" layoutY="40.0" prefHeight="322.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
-<ListView fx:id="allSubjectList" layoutX="411.0" layoutY="40.0" prefHeight="322.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
-<Button fx:id="addSubjectToList" layoutX="360.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="&lt;--" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
-<Button fx:id="removeSubjectFromList" layoutX="360.0" layoutY="176.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="--&gt;" />
+<children><ListView fx:id="groupList" editable="true" layoutX="14.0" layoutY="40.0" onMouseClicked="#GroupListClick" prefHeight="322.0" prefWidth="130.0" />
+<ListView fx:id="selectSubjectsList" layoutX="163.0" layoutY="40.0" prefHeight="322.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<ListView fx:id="allSubjectList" layoutX="471.0" layoutY="40.0" prefHeight="322.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Button fx:id="addSubjectToList" layoutX="420.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="&lt;--" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<Button fx:id="removeSubjectFromList" layoutX="420.0" layoutY="176.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="--&gt;" />
 <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Група" />
-<Text layoutX="411.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Перелік доступних предметів" />
+<Text layoutX="471.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Перелік доступних предметів" />
 <Text layoutX="154.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Вибрані предмети" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 </children>
 </AnchorPane>
 </content>
+</Tab><Tab text="Генератор">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children><Button fx:id="generateBtn" layoutX="57.0" layoutY="398.0" mnemonicParsing="false" text="Згенерувати" />
+</children></AnchorPane>
+  </content>
 </Tab>
   </tabs>
 </TabPane>
