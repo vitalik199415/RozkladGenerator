@@ -11,7 +11,7 @@ import pojo.*;
 
 /**
  * @author Andriy
- * @class Connector designed as Singleton
+ * @class Connector designed as Singleton   
  */
 
 public class Connector {
