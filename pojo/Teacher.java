@@ -35,7 +35,7 @@ public class Teacher {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return (this.id + "\t" + this.surname+ "\t" +this.name + "\t" + this.fName + "\n"); 
+		return (this.id + "  " + this.surname+ "\t" +this.name + "\t" + this.fName + "\n"); 
 	}
 		
 

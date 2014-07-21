@@ -14,8 +14,22 @@ public class Test {
 			System.out.println(row);
 		}
 		
+		for (Group row: conn.getAllGroupList()){
+			System.out.println(row);
+		}
+		for (Teacher row: conn.getTeacherList()){
+			System.out.println(row);
+		}
+		
+		for (Subject row: conn.getSubjectList()){
+			System.out.println(row);
+		}
+		
+		
 		Engine e = new Engine();
-		e.traceDatabaseIntoBinary();
+		e.traceDatabaseIntoClassesStructure();
+		
+		
 		
 
 	}

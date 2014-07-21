@@ -31,25 +31,40 @@ public class Engine {
 	private ArrayList<Subject> 	subjArray;
 	private ArrayList<Group> 	groupArray;
 	
-	private ArrayList<TimeTable> timeTable;
+	private TimeTable timeTable = new TimeTable();
 	
-	public void traceDatabaseIntoBinary(){
+	public void traceDatabaseIntoClassesStructure(){
 		
 		this.roomArray 	= new ArrayList<Room>	(conn.getRoomList	());
 		this.teachArray = new ArrayList<Teacher>(conn.getTeacherList());
 		this.subjArray 	= new ArrayList<Subject>(conn.getSubjectList());
 		this.groupArray = new ArrayList<Group>	(conn.getAllGroupList());
 		
-		
-	}
-	
-	
-	private void readDayOfWeek(){
-		
-		
-		
-		
 	}
 		
+	
+	public void generateStartup(){
+		
+		for (Group group: this.groupArray){
+			for (int i=0; i++ < 4;){
+				//for 
+			}
+			
+		}
+		
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

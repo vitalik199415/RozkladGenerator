@@ -28,7 +28,7 @@ public class Room {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return (this.id + "\t" + this.name+ "\t" +this.count_seating + "\n");
+		return (this.id + "  " + this.name+ "\t" +this.count_seating + "\n");
 	}
 		
 	

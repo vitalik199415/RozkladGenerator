@@ -475,7 +475,7 @@ public class Connector {
 		Group someGroup;
 		
 		final String GET_All_ROOM_LIST = "SELECT * FROM \"group\" ";
-		final String SQL = "SELECT room_id FROM room WHERE (room_count_seating >= %d)";
+		final String SQL = "SELECT subj_group_id_subject FROM subject_group WHERE (subj_group_id_group = %d)";
 		try {
 			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
 			this.rs = this.ps.executeQuery();
@@ -491,7 +491,7 @@ public class Connector {
 				ResultSet reSet =  stm.executeQuery();
 				
 				while (reSet.next()) {
-					someGroup.getPossibleRoom().add(reSet.getInt("room_id"));
+					someGroup.getSubjectsTaught().add(reSet.getInt("subj_group_id_subject"));
 				}
 				
 				stm = null;

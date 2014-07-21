@@ -39,5 +39,11 @@ public class Subject{
 		this.isLection = isLection;
 	}
 	
+	@Override
+	public String toString() {
+		String isLect = this.getIsLection() ? "Лекція" : "";
+		String temp = this.id + "  " + this.name+ "\t" +this.shortName + "\t" + this.countHour + "h\t" + isLect + "\n";
+	 	return temp;
+	}
 
 }
