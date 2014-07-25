@@ -28,8 +28,8 @@ public class MainController implements Initializable {
 	@FXML private TextField 		fac_name;
 	@FXML private TextField 		fac_short;
 	@FXML private Button 			fac_save;
-	@FXML private Button 			fac_clear;
-	@FXML private ListView<String> 	FacultyList;
+	@FXML private Button 			fac_cancel;
+	@FXML private ListView<String> 	facListView;
 
 	@FXML private TextField 		group_name;
 	@FXML private TextField 		group_short;
@@ -37,6 +37,7 @@ public class MainController implements Initializable {
 	@FXML private ComboBox<String> 	group_fac_name_combo;
 	@FXML private ComboBox<Integer> group_fac_id_combo;
 	@FXML private Button 			group_save;
+	@FXML private ListView<String>  groupListView;
 
 	@FXML private TextField 		teach_surname;
 	@FXML private TextField 		teach_name;
@@ -44,6 +45,8 @@ public class MainController implements Initializable {
 	@FXML private TextField 		teach_age;
 	@FXML private TextField 		teach_tel;
 	@FXML private Button 			teach_save;
+	@FXML private Button            teach_cancel;
+	@FXML private ListView<String>  teachListView;
     
 	@FXML private TextField 		subj_name;
 	@FXML private TextField 		subj_short;
@@ -52,11 +55,15 @@ public class MainController implements Initializable {
 	@FXML private ComboBox<Integer> subj_teacher_id_combo;
 	@FXML private RadioButton		subj_is_lection;
 	@FXML private Button 			subj_save;
+	@FXML private Button			subj_cancel;
+	@FXML private ListView<String>  subjListView;
 
 	@FXML private TextField 		room_name;
 	@FXML private RadioButton		room_is_laboratory;
 	@FXML private Button 			room_save;
-
+	@FXML private Button     		room_cancel;
+	@FXML private ListView<String>  roomListView;
+	
 	@FXML private ListView<String> 	groupList;
 	@FXML private ListView<String> 	selectSubjectsList;
 	@FXML private ListView<String> 	allSubjectList;
@@ -105,9 +112,13 @@ public class MainController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
 					updateComboBoxes();
-					updateFacultetList();
+					updateFacListView();
+					updateTeachListView();
+					updateGroupListView();
+					updateSubjListView();
+					updateRoomListView();
 					
-				if (newValue == tabPanel.getTabs().get(tabPanel.getTabs().size() - 1)) {
+				if (newValue == tabPanel.getTabs().get(tabPanel.getTabs().size() - 2)) {
 					groupList.getItems().clear();
 					idGroupList.clear();
 					groupList.getItems().addAll(conn.getGroupList());
@@ -136,7 +147,11 @@ public class MainController implements Initializable {
 		});
 		
 		this.updateComboBoxes();
-		this.updateFacultetList();
+		this.updateFacListView();
+		this.updateTeachListView();
+		this.updateGroupListView();
+		this.updateSubjListView();
+		this.updateRoomListView();
 	}
 
 	public void GroupListClick(){
@@ -183,38 +198,88 @@ public class MainController implements Initializable {
 
 	public void FacSaveClick() {
 		conn.AddNewFacultet(fac_name.getText(), fac_short.getText());
-		updateFacultetList();
-		FacClearClick();
+		updateFacListView();
+		FacCancelClick();
 	}
 	
-	public void FacClearClick(){
+	public void FacCancelClick(){
 		fac_name.setText("");
 		fac_short.setText("");
 	}
 
-	public void updateFacultetList() {
-		FacultyList.getItems().clear();
-		FacultyList.getItems().addAll(conn.getFacultetList());
+	public void updateFacListView() {
+		facListView.getItems().clear();
+		facListView.getItems().addAll(conn.getFacultetList());
 	}
 
 	public void GroupSaveClick() {
 		int id_facult;
 		id_facult = (Integer) group_fac_id_combo.getSelectionModel().getSelectedItem();
 		conn.AddNewGroup(group_name.getText(), Integer.parseInt(group_count_stud.getText()), id_facult);
+		updateGroupListView();
+		GroupCancelClick();
 	}
 
+	public void GroupCancelClick() {
+		group_name.setText("");
+		group_count_stud.setText("");
+	}
+	
+	public void updateGroupListView() {
+		groupListView.getItems().clear();
+		groupListView.getItems().addAll(conn.getGroupList());
+	}
+	
 	public void TeachSaveClick() {
 		conn.AddNewTeacher(teach_surname.getText(), teach_name.getText(), teach_f_name.getText(), teach_tel.getText());
+		updateTeachListView();
+		TeachCancelClick();
+	}
+	
+	public void TeachCancelClick() {
+		teach_surname.setText("");
+		teach_name.setText("");
+		teach_f_name.setText("");
+		teach_tel.setText("");
 	}
 
+	public void updateTeachListView() {
+		teachListView.getItems().clear();
+		teachListView.getItems().addAll(conn.getTeachersList());
+	}
+	
 	public void SubjSaveClick() {
 		int id_teacher;
 		id_teacher = (Integer) subj_teacher_id_combo.getSelectionModel().getSelectedItem();
 		conn.AddNewSubject(subj_name.getText(), subj_short.getText(), subj_hour.getText(), subj_is_lection.isSelected(), id_teacher);
+		updateSubjListView();
+		SubjCancelClick();
 	}
 
+	public void SubjCancelClick() {
+		subj_name.setText("");
+		subj_short.setText("");
+		subj_hour.setText("");
+	}
+	
+	public void updateSubjListView() {
+		subjListView.getItems().clear();
+		subjListView.getItems().addAll(conn.getAllSubjectList());
+	}
+	
 	public void RoomSaveClick() {
 		conn.AddNewRoom(room_name.getText(), room_is_laboratory.isSelected());
+		updateRoomListView();
+		RoomCancelClick();
 	}
 
+	public void RoomCancelClick() {
+		room_name.setText("");
+	}
+
+	public void updateRoomListView() {
+		roomListView.getItems().clear();
+		roomListView.getItems().addAll(conn.getRoomListView());
+		
+	}
 }
