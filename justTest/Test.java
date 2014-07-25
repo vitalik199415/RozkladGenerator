@@ -1,5 +1,8 @@
 package justTest;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import pojo.*;
 import database.Connector;
 import engine_binary.*;
@@ -31,7 +34,30 @@ public class Test {
 		
 		
 		
+		ArrayList<Subject> arr = new ArrayList<Subject>(8);
+		int n=0;
+		for (Iterator<Subject> iterator = arr.iterator(); iterator.hasNext();) {
+			Subject el = iterator.next();
+			el = new Subject();
+		}
+		
+		System.out.println("size "+arr.size());
+		for(Subject el: arr){
+			System.out.println("iteration "+n);
+			if ((n & 2) == 0){
+				System.out.println("\tdelete "+n);
+				el = null;
+			}
+			n++;
+		}
+		
+		n=0;
+		System.out.println("size "+arr.size());
+		for(Subject el: arr){
+			System.out.println("iteration "+n);
+			}
+			n++;
+		}
 
-	}
 
 }

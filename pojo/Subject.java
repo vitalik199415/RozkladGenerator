@@ -8,6 +8,7 @@ public class Subject{
 	private int 				countHour; 
 	private Boolean 			isLection;
 	
+	
 	public int getId() {
 		return id;
 	}
