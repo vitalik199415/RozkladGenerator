@@ -3,7 +3,6 @@ package engine_binary;
 import database.*;
 import pojo.*;
 import tools.OneSubject;
-import tools.SubjForDay;
 import tools.TimeTable;
 
 import java.util.ArrayList;
@@ -34,9 +33,9 @@ public class Engine {
 		throw new Error("Не знайдено жодного співпадіння в переліку предметів!!!");
 	}
 	
-	private int getPossibleRoom(ArrayList<Room> copyRoomList){
-		for(Room room: )
-	}
+	//private int getPossibleRoom(ArrayList<Room> copyRoomList){
+	//	for(Room room: )
+//	}
 	
 	private int getRandomSubject(ArrayList<Subject> list ){
 		Random r = new Random();

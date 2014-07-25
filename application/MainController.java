@@ -59,6 +59,7 @@ public class MainController implements Initializable {
 	@FXML private ListView<String>  subjListView;
 
 	@FXML private TextField 		room_name;
+	@FXML private TextField 		room_count;
 	@FXML private RadioButton		room_is_laboratory;
 	@FXML private Button 			room_save;
 	@FXML private Button     		room_cancel;
@@ -268,13 +269,14 @@ public class MainController implements Initializable {
 	}
 	
 	public void RoomSaveClick() {
-		conn.AddNewRoom(room_name.getText(), room_is_laboratory.isSelected());
+		conn.AddNewRoom(room_name.getText(), room_count.getText(), room_is_laboratory.isSelected());
 		updateRoomListView();
 		RoomCancelClick();
 	}
 
 	public void RoomCancelClick() {
 		room_name.setText("");
+		room_count.setText("");
 	}
 
 	public void updateRoomListView() {

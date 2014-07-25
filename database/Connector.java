@@ -22,7 +22,7 @@ public class Connector {
 	private ResultSet rs;
 
 	private final String DRIVER_NAME = "org.postgresql.Driver";
-	private final String URL = "jdbc:postgresql://localhost:5432/DBRozkladGenerator";
+	private final String URL = "jdbc:postgresql://localhost:5433/DBRozkladGenerator";
 	private final String USER = "postgres";
 	private final String PASS = "root";
 
@@ -107,9 +107,9 @@ public class Connector {
 		}
 	}
 
-	public void AddNewRoom(String _name, boolean _isLaboratory) {
-		String sql = "INSERT INTO room VALUES(DEFAULT, '%s', %b)";
-		final String QUERY_ADD_ROOM = String.format(sql, _name, _isLaboratory);
+	public void AddNewRoom(String _name, String countSeating, boolean _isLaboratory) {
+		String sql = "INSERT INTO room VALUES(DEFAULT, '%s', '%s', %b)";
+		final String QUERY_ADD_ROOM = String.format(sql, _name, countSeating, _isLaboratory);
 		try {
 			this.ps = this.db.prepareStatement(QUERY_ADD_ROOM);
 			this.ps.execute();
