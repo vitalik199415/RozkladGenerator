@@ -480,7 +480,7 @@ public class Connector {
 				someSubj.setCountHour(rs.getInt("subj_count_hour"));
 				someSubj.setIsLection(rs.getBoolean("subj_is_lection"));
 				arr.add(someSubj);
-				someSubj = null;
+				someSubj = null;    
 			}
 			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
 			return arr;
