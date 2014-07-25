@@ -23,7 +23,7 @@ public class Connector {
 	private ResultSet rs;
 
 	private final String DRIVER_NAME = "org.postgresql.Driver";
-	private final String URL = "jdbc:postgresql://localhost:5433/DBRozkladGenerator";
+	private final String URL = "jdbc:postgresql://localhost:5432/DBRozkladGenerator";
 	private final String USER = "postgres";
 	private final String PASS = "root";
 
@@ -289,7 +289,7 @@ public class Connector {
 			this.rs = this.ps.executeQuery();
 			String isLab;
 			while (this.rs.next()) {
-				isLab = rs.getBoolean("subj_is_lection") ? " À‡·." : "";
+				isLab = rs.getBoolean("subj_is_lection") ? "" : " À‡· ";
 
 				arr.add(rs.getString("subj_name").trim()+" ("+rs.getString("subj_short").trim()+")"+isLab);
 			}
@@ -325,6 +325,30 @@ public class Connector {
 		} finally {
 			this.ps = null;
 			this.rs = null;
+		}
+		return arr;
+	}
+	
+	public ArrayList<String> getRoomListView(){
+		ArrayList<String> arr = new ArrayList<String>();
+		final String GET_All_ROOM_LIST = "SELECT * FROM room";
+		try {
+			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
+			this.rs = this.ps.executeQuery();
+			String isRoom;
+			while (this.rs.next()) {
+				isRoom = rs.getBoolean("room_isLaboratory") ? "" : " À‡· ";
+
+				arr.add(rs.getString("room_name").trim() + isRoom);
+			}
+			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
+			return arr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_All_ROOM_LIST + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
 		}
 		return arr;
 	}
