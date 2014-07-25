@@ -5,6 +5,7 @@ public class Room {
 	private int 	id;
 	private String 	name;
 	private int 	count_seating;
+	private Boolean isLaboratory;
 	
 	public int getId() {
 		return id;
@@ -29,6 +30,12 @@ public class Room {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return (this.id + "  " + this.name+ "\t" +this.count_seating + "\n");
+	}
+	public Boolean getIsLaboratory() {
+		return isLaboratory;
+	}
+	public void setIsLaboratory(Boolean isLaboratory) {
+		this.isLaboratory = isLaboratory;
 	}
 		
 	

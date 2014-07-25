@@ -419,6 +419,7 @@ public class Connector {
 				someRoom.setId(rs.getInt("room_id"));
 				someRoom.setName(rs.getString("room_name").trim());
 				someRoom.setCount_seating(rs.getInt("room_count_seating"));
+				someRoom.setIsLaboratory(rs.getBoolean("room_isLaboratory"));
 				arr.add(someRoom);
 				someRoom = null;
 			}
