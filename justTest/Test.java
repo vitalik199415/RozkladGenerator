@@ -2,6 +2,7 @@ package justTest;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import pojo.*;
 import database.Connector;
@@ -13,27 +14,43 @@ public class Test {
 		// TODO Auto-generated method stub
 		Connector conn = Connector.getConnection();
 		
-		for (Room row: conn.getRoomList()){
-			System.out.println(row);
-		}
-		
-		for (Group row: conn.getAllGroupList()){
-			System.out.println(row);
-		}
-		for (Teacher row: conn.getTeacherList()){
-			System.out.println(row);
-		}
-		
-		for (Subject row: conn.getSubjectList()){
-			System.out.println(row);
-		}
+//		for (Room row: conn.getRoomList()){
+//			System.out.println(row);
+//		}
+//		
+//		for (Group row: conn.getAllGroupList()){
+//			System.out.println(row);
+//		}
+//		for (Teacher row: conn.getTeacherList()){
+//			System.out.println(row);
+//		}
+//		
+//		for (Subject row: conn.getSubjectList()){
+//			System.out.println(row);
+//		}
 		
 		
 		Engine e = new Engine();
-		e.traceDatabaseIntoClassesStructure();
-		
 		e.generateStartup();
 	
+		Random r = new Random();
+		int one=0, two=0, three=0, four=0, five=0, zero=0 ;
+		for (int i = 100000000; --i>0;){
+			
+			switch (r.nextInt(6)){
+				case 0: {zero++; break;}
+				case 1: {one++; break;}
+				case 2: {two++; break;}
+				case 3: {three++; break;}
+				case 4: {four++; break;}
+				case 5: {five++; break;}
+			}
+			
+			
+		}
+		System.out.println("\n0: "+zero+"\n1: "+one+"\n2: "+two+"\n3: "+three+"\n4: "+four+"\n5: "+five);
+		
+		
 	}
 	
 		

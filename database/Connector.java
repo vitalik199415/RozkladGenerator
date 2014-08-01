@@ -417,7 +417,6 @@ public class Connector {
 			while (this.rs.next()) {
 				someRoom = new Room();
 				someRoom.setId(rs.getInt("room_id"));
-				someRoom.setName(rs.getString("room_name").trim());
 				someRoom.setCount_seating(rs.getInt("room_count_seating"));
 				someRoom.setIsLaboratory(rs.getBoolean("room_isLaboratory"));
 				arr.add(someRoom);
@@ -446,9 +445,6 @@ public class Connector {
 			while (this.rs.next()) {
 				someTeacher = new Teacher();
 				someTeacher.setId(rs.getInt("teach_id"));
-				someTeacher.setSurname(rs.getString("teach_surname").trim());
-				someTeacher.setName(rs.getString("teach_name").trim());
-				someTeacher.setFName(rs.getString("teach_father_name").trim());
 				arr.add(someTeacher);
 				someTeacher = null;
 			}
@@ -475,9 +471,8 @@ public class Connector {
 			while (this.rs.next()) {
 				someSubj = new Subject();
 				someSubj.setId(rs.getInt("subj_id"));
-				someSubj.setName(rs.getString("subj_name").trim());
-				someSubj.setShortName(rs.getString("subj_short").trim());
 				someSubj.setCountHour(rs.getInt("subj_count_hour"));
+				someSubj.setIdTeach(rs.getInt("subj_id_teacher"));
 				someSubj.setIsLection(rs.getBoolean("subj_is_lection"));
 				arr.add(someSubj);
 				someSubj = null;    
@@ -507,7 +502,6 @@ public class Connector {
 				someGroup = new Group();
 				
 				someGroup.setId(rs.getInt("group_id"));
-				someGroup.setName(rs.getString("group_name").trim());
 				someGroup.setCountStud(rs.getInt("group_count_stud"));
 
 				String getPossibleRooms = String.format(SQL, someGroup.getId());

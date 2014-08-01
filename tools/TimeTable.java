@@ -2,6 +2,8 @@ package tools;
 
 public class TimeTable {
 
+	public float qualityFactor;
+	
 	private DayOfWeek mon;
 	private DayOfWeek tue;
 	private DayOfWeek wed;
@@ -32,6 +34,10 @@ public class TimeTable {
 		this.fri = new DayOfWeek(_friSubj);
 	}
 
+	public void calculateQuality(){
+		
+	} 
+	
 	public DayOfWeek getMon() {
 		return mon;
 	}
@@ -52,5 +58,6 @@ public class TimeTable {
 		return fri;
 	}
 
+	
 	
 }

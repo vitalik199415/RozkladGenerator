@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class DayOfWeek {
 
-	public static final int MAX_COUNT_SUBJ_FOR_DAY = 6;
+	public static final int MAX_SUBJ_FOR_DAY = 6;
 	
 	private ArrayList<OneSubject> subjects;
 
 	public DayOfWeek() {
-		this.subjects = new ArrayList<>(MAX_COUNT_SUBJ_FOR_DAY);
+		this.subjects = new ArrayList<>(MAX_SUBJ_FOR_DAY);
 	}
 	
 	public DayOfWeek(int countSubj){
