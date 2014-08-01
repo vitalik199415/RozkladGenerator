@@ -7,7 +7,7 @@ public class Group {
 	private int 	id;
 	private int 	countStud;
 	
-	private ArrayList<Integer> 	subjectsTaught = new ArrayList<Integer>();  // id предметів що викладаються
+	private ArrayList<Subject> 	subjectsTaught = new ArrayList<>();  // id предметів що викладаються
 	
 	public int getId() {
 		return id;
@@ -21,10 +21,10 @@ public class Group {
 	public void setCountStud(int count_stud) {
 		this.countStud = count_stud;
 	}
-	public ArrayList<Integer> getSubjectsTaught() {
+	public ArrayList<Subject> getSubjectsTaught() {
 		return subjectsTaught;
 	}
-	public void setSubjectsTaught(ArrayList<Integer> subjectsTaught) {
+	public void setSubjectsTaught(ArrayList<Subject> subjectsTaught) {
 		this.subjectsTaught = subjectsTaught;
 	}
 

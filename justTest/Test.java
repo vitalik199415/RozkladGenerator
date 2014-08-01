@@ -29,13 +29,10 @@ public class Test {
 //			System.out.println(row);
 //		}
 		
-		
-		Engine e = new Engine();
-		e.generateStartup();
 	
 		Random r = new Random();
-		int one=0, two=0, three=0, four=0, five=0, zero=0 ;
-		for (int i = 100000000; --i>0;){
+		int one=0, two=0, three=0, four=0, five=0, zero=0, six=0 ;
+		for (int i = 10000; --i>0;){
 			
 			switch (r.nextInt(6)){
 				case 0: {zero++; break;}
@@ -44,12 +41,17 @@ public class Test {
 				case 3: {three++; break;}
 				case 4: {four++; break;}
 				case 5: {five++; break;}
+				case 6: {six++; break;}
 			}
 			
 			
 		}
-		System.out.println("\n0: "+zero+"\n1: "+one+"\n2: "+two+"\n3: "+three+"\n4: "+four+"\n5: "+five);
+		System.out.println("\n0: "+zero+"\n1: "+one+"\n2: "+two+"\n3: "+three+"\n4: "+four+"\n5: "+five+ "\n6: "+six);
 		
+		
+		
+		Engine e = new Engine();
+		e.generateStartup();
 		
 	}
 	

@@ -9,10 +9,13 @@ public class DayOfWeek {
 	private ArrayList<OneSubject> subjects;
 
 	public DayOfWeek() {
-		this.subjects = new ArrayList<>(MAX_SUBJ_FOR_DAY);
+		this(MAX_SUBJ_FOR_DAY);
 	}
 	
-	public DayOfWeek(int countSubj){
+	public DayOfWeek(int countSubj) {
+		if (countSubj > MAX_SUBJ_FOR_DAY)
+			throw new Error("Неможливо створити DayOfWeek з кількістю пар > "+countSubj);
+		
 		this.subjects = new ArrayList<>(countSubj);		
 	}
 	
@@ -24,6 +27,4 @@ public class DayOfWeek {
 		return subjects;
 	}
 
-	
-	
 }

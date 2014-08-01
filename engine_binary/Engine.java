@@ -7,7 +7,6 @@ import tools.TimeTable;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 
 /**
  * @author Andriy
@@ -32,15 +31,8 @@ public class Engine {
 		throw new Error("Не знайдено жодного співпадіння в переліку предметів!!!");
 	}
 	
-	private int  getTeacherBySubj(int idSubj){
-		for (Subject subj: subjArray){
-			if (subj.getId() == idSubj)
-				return subj.getIdTeach();
-		}
-		throw new Error("Не знайдено предмету з таким ідентифікатором");
-	}
-	
 	private int getPossibleRoom(Boolean isLection){
+		
 		Random r = new Random();
 		int result;
 		do {
@@ -55,12 +47,15 @@ public class Engine {
 		return this.roomArray.get(result).getId();
 	}
 	
-	private int getRandomSubject(ArrayList<Integer> list ){
+	private int getRandomSubject(ArrayList<Subject> list ){
 		Random r = new Random();
-		if (list.size() <= 1){
-			return 0; 
+		if (list.size() == 1) 
+			return 0;
+		if (list.size() < 1){
+			throw new Error("Закінчився список предметів (((");
 		}
-		return	r.nextInt(list.size()-1);
+		return r.nextInt(list.size());
+		
 	}
 	
 	private void traceDatabaseIntoClassesStructure(){
@@ -82,7 +77,7 @@ public class Engine {
 		
 		int mon=0, tue=0, wed=0, thu=0, fri=0;
 		OneSubject oneSubj;
-		ArrayList<Integer> subjectTaughtList;
+		ArrayList<Subject> subjectTaughtList;
 
 		TimeTable tmtbl;
 		
@@ -109,11 +104,12 @@ public class Engine {
 			while (mon > 0){
 				oneSubj = new OneSubject();
 				oneSubj.idGroup = group.getId();
+				
 				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList);
+				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
+				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
 				subjectTaughtList.remove(idInList);
 				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				oneSubj.idTeach = getTeacherBySubj(oneSubj.idSubj);
 				tmtbl.getMon().addSubj(oneSubj);
 				--mon;
 				oneSubj = null;
@@ -121,11 +117,12 @@ public class Engine {
 			while (tue > 0){
 				oneSubj = new OneSubject();
 				oneSubj.idGroup = group.getId();
+				
 				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList);
+				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
+				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
 				subjectTaughtList.remove(idInList);
 				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				oneSubj.idTeach = getTeacherBySubj(oneSubj.idSubj);
 				tmtbl.getTue().addSubj(oneSubj);
 				--tue;
 				oneSubj = null;
@@ -133,11 +130,12 @@ public class Engine {
 			while (wed > 0){
 				oneSubj = new OneSubject();
 				oneSubj.idGroup = group.getId();
+				
 				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList);
+				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
+				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
 				subjectTaughtList.remove(idInList);
 				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				oneSubj.idTeach = getTeacherBySubj(oneSubj.idSubj);
 				tmtbl.getWed().addSubj(oneSubj);
 				--wed;
 				oneSubj = null;
@@ -145,11 +143,12 @@ public class Engine {
 			while (thu > 0){
 				oneSubj = new OneSubject();
 				oneSubj.idGroup = group.getId();
+				
 				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList);
+				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
+				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
 				subjectTaughtList.remove(idInList);
 				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				oneSubj.idTeach = getTeacherBySubj(oneSubj.idSubj);
 				tmtbl.getThu().addSubj(oneSubj);
 				--thu;
 				oneSubj = null;
@@ -157,15 +156,18 @@ public class Engine {
 			while (fri > 0){
 				oneSubj = new OneSubject();
 				oneSubj.idGroup = group.getId();
+				
 				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList);
+				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
+				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
 				subjectTaughtList.remove(idInList);
 				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				oneSubj.idTeach = getTeacherBySubj(oneSubj.idSubj);
 				tmtbl.getFri().addSubj(oneSubj);
 				--fri;
 				oneSubj = null;
 			}
+			
+			
 			timeTable.add(tmtbl);
 			
 		}

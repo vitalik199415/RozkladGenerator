@@ -464,9 +464,9 @@ public class Connector {
 		ArrayList<Subject> arr = new ArrayList<Subject>();
 		Subject someSubj;
 		
-		final String GET_All_ROOM_LIST = "SELECT * FROM subject";
+		final String GET_SUBJECT_LIST = "SELECT * FROM subject";
 		try {
-			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
+			this.ps = this.db.prepareStatement(GET_SUBJECT_LIST);
 			this.rs = this.ps.executeQuery();
 			while (this.rs.next()) {
 				someSubj = new Subject();
@@ -477,11 +477,11 @@ public class Connector {
 				arr.add(someSubj);
 				someSubj = null;    
 			}
-			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
+			System.out.println(GET_SUBJECT_LIST + " Succesfull!");
 			return arr;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(GET_All_ROOM_LIST + " FALLING DOWN!!!");
+			System.out.println(GET_SUBJECT_LIST + " FALLING DOWN!!!");
 		} finally {
 			this.rs = null;
 			this.ps = null;
@@ -494,7 +494,9 @@ public class Connector {
 		Group someGroup;
 		
 		final String GET_All_ROOM_LIST = "SELECT * FROM \"group\" ";
-		final String SQL = "SELECT subj_group_id_subject FROM subject_group WHERE (subj_group_id_group = %d)";
+		final String SQL = "SELECT subj_id, subj_count_hour, subj_is_lection, subj_id_teacher "
+					 	 + "FROM subject, subject_group "
+						 + "WHERE (subj_id = subj_group_id_subject) and (subj_group_id_group = %d)";
 		try {
 			this.ps = this.db.prepareStatement(GET_All_ROOM_LIST);
 			this.rs = this.ps.executeQuery();
@@ -507,9 +509,16 @@ public class Connector {
 				String getPossibleRooms = String.format(SQL, someGroup.getId());
 				PreparedStatement stm = this.db.prepareStatement(getPossibleRooms);
 				ResultSet reSet =  stm.executeQuery();
-				
+				Subject someSubj = null;
 				while (reSet.next()) {
-					someGroup.getSubjectsTaught().add(reSet.getInt("subj_group_id_subject"));
+					someSubj = new Subject();
+					someSubj.setId(reSet.getInt("subj_id"));
+					someSubj.setCountHour(reSet.getInt("subj_count_hour"));
+					someSubj.setIsLection(reSet.getBoolean("subj_is_lection"));
+					someSubj.setIdTeach(reSet.getInt("subj_id_teacher"));
+					
+					someGroup.getSubjectsTaught().add(someSubj);
+					someSubj = null;
 				}
 				
 				stm = null;
