@@ -2,8 +2,7 @@ package engine_binary;
 
 import database.*;
 import pojo.*;
-import tools.OneSubject;
-import tools.TimeTable;
+import tools.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,7 +31,6 @@ public class Engine {
 	}
 	
 	private int getPossibleRoom(Boolean isLection){
-		
 		Random r = new Random();
 		int result;
 		do {
@@ -41,13 +39,11 @@ public class Engine {
 				continue;
 			else 
 				break;
-			
 		} while (true);
-		
 		return this.roomArray.get(result).getId();
 	}
 	
-	private int getRandomSubject(ArrayList<Subject> list ){
+	private int getRandomSubject(ArrayList<Subject> list){
 		Random r = new Random();
 		if (list.size() == 1) 
 			return 0;
@@ -64,127 +60,62 @@ public class Engine {
 		this.subjArray 	= new ArrayList<Subject>(conn.getSubjectList());
 		this.groupArray = new ArrayList<Group>	(conn.getAllGroupList());
 		//створемо к≥льк≥сть розклад≥в, що р≥вна к≥лькост≥ груп
-		timeTable = new ArrayList<TimeTable>(this.groupArray.size());
+		this.timeTable =  new ArrayList<TimeTable>(this.groupArray.size());
 	}
 	
 	public void generateStartup(){
 		
 		this.traceDatabaseIntoClassesStructure();
-		
-		int intPart = 0;
-		int facPart = 0;
-		int idInList = 0;
-		
-		int mon=0, tue=0, wed=0, thu=0, fri=0;
+		int idInList = 0, curDay = 0;
+		TimeTable tmtbl;
+		boolean inFirst; // умова вибору м≥сц€ встаки предмету, €кий чергуЇтьс€
 		OneSubject oneSubj;
 		ArrayList<Subject> subjectTaughtList;
 
-		TimeTable tmtbl;
-		
 		for (Group group: this.groupArray){
-			
+			tmtbl = new TimeTable(4);
+			inFirst = true;
+			curDay = 1;
 			subjectTaughtList = group.getSubjectsTaught();
-			
-			intPart = group.getSubjectsTaught().size() / 5;
-			facPart = group.getSubjectsTaught().size() % 5;
 
-			System.out.println("int "+intPart+" facPart "+facPart);
-			
-			switch (facPart){
-				case 1: { mon = intPart;	tue = intPart+1; 	wed = intPart; 		thu = intPart; 		fri = intPart; break;}  
-				case 2: { mon = intPart; 	tue = intPart+1; 	wed = intPart+1; 	thu = intPart; 		fri = intPart; break;}  
-				case 3: { mon = intPart; 	tue = intPart+1; 	wed = intPart+1; 	thu = intPart+1; 	fri = intPart; break;}  
-				case 4: { mon = intPart+1; 	tue = intPart+1; 	wed = intPart+1; 	thu = intPart+1; 	fri = intPart; break;}  
-				case 0: { mon = intPart; 	tue = intPart; 		wed = intPart; 		thu = intPart; 		fri = intPart; break;}
-				default:{ mon = intPart; 	tue = intPart; 		wed = intPart; 		thu = intPart; 		fri = intPart; break;}
-			}
-			
-			tmtbl = new TimeTable(mon, tue, wed, thu, fri);
-			
-			while (mon > 0){
+			while (subjectTaughtList.size() > 0){
+		
+				if (curDay > 5){
+					curDay = 1;
+				}
 				oneSubj = new OneSubject();
-				oneSubj.idGroup = group.getId();
-				
 				idInList = getRandomSubject(subjectTaughtList);
+				oneSubj.idGroup = group.getId();
 				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
 				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
-				subjectTaughtList.remove(idInList);
 				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				tmtbl.getMon().addSubj(oneSubj);
-				--mon;
-				oneSubj = null;
-			}
-			while (tue > 0){
-				oneSubj = new OneSubject();
-				oneSubj.idGroup = group.getId();
 				
-				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
-				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
+				if (subjectTaughtList.get(idInList).getHourInWeek() <= 1){
+					if (inFirst){
+						tmtbl.getWeekA().getDayById(curDay).addSubj(oneSubj);
+					} else {
+						tmtbl.getWeekB().getDayById(curDay).addSubj(oneSubj);
+					}
+					inFirst = !inFirst; 
+					curDay++;
+					subjectTaughtList.remove(idInList);
+					continue;
+				}
+					tmtbl.getWeekA().getDayById(curDay).addSubj(oneSubj);
+					tmtbl.getWeekB().getDayById(curDay).addSubj(oneSubj);
+					curDay++;
+					
+				if (subjectTaughtList.get(idInList).getHourInWeek() > 2){
+					subjectTaughtList.get(idInList).setHourInWeek(subjectTaughtList.get(idInList).getHourInWeek()-2);
+					continue;
+				}
 				subjectTaughtList.remove(idInList);
-				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				tmtbl.getTue().addSubj(oneSubj);
-				--tue;
 				oneSubj = null;
 			}
-			while (wed > 0){
-				oneSubj = new OneSubject();
-				oneSubj.idGroup = group.getId();
-				
-				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
-				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
-				subjectTaughtList.remove(idInList);
-				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				tmtbl.getWed().addSubj(oneSubj);
-				--wed;
-				oneSubj = null;
-			}
-			while (thu > 0){
-				oneSubj = new OneSubject();
-				oneSubj.idGroup = group.getId();
-				
-				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
-				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
-				subjectTaughtList.remove(idInList);
-				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				tmtbl.getThu().addSubj(oneSubj);
-				--thu;
-				oneSubj = null;
-			}
-			while (fri > 0){
-				oneSubj = new OneSubject();
-				oneSubj.idGroup = group.getId();
-				
-				idInList = getRandomSubject(subjectTaughtList);
-				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
-				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
-				subjectTaughtList.remove(idInList);
-				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
-				tmtbl.getFri().addSubj(oneSubj);
-				--fri;
-				oneSubj = null;
-			}
-			
-			
-			timeTable.add(tmtbl);
-			
+			this.timeTable.add(tmtbl);
+			tmtbl = null;
 		}
 
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,6 @@
 package database;
 import java.sql.Connection;
+import tools.Config;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,25 +22,20 @@ public class Connector {
 	private PreparedStatement ps;
 	private ResultSet rs;
 
-	private final String DRIVER_NAME = "org.postgresql.Driver";
-	private final String URL = "jdbc:postgresql://localhost:5433/DBRozkladGenerator";
-	private final String USER = "postgres";
-	private final String PASS = "root";
-
 	private Connector() {
 		long timeout = System.currentTimeMillis();
 		try {
-			Class.forName(DRIVER_NAME);
+			Class.forName(Config.DRIVER_NAME);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		try {
-			this.db = DriverManager.getConnection(URL, USER, PASS);
+			this.db = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		timeout = System.currentTimeMillis() - timeout;
-		System.out.println("user:" + USER + " connected to db.. " + "timeout: "
+		System.out.println("user:" + Config.USER + " connected to db.. " + "timeout: "
 				+ timeout + "ms");
 	}
 
@@ -472,7 +468,9 @@ public class Connector {
 				someSubj = new Subject();
 				someSubj.setId(rs.getInt("subj_id"));
 				someSubj.setCountHour(rs.getInt("subj_count_hour"));
+				someSubj.setHourInWeek(someSubj.getCountHour() / Config.COUNT_WEEKS_IN_FIRST_SEMESTR);
 				someSubj.setIdTeach(rs.getInt("subj_id_teacher"));
+				
 				someSubj.setIsLection(rs.getBoolean("subj_is_lection"));
 				arr.add(someSubj);
 				someSubj = null;    
