@@ -79,7 +79,6 @@ public class Engine {
 			subjectTaughtList = group.getSubjectsTaught();
 
 			while (subjectTaughtList.size() > 0){
-		
 				if (curDay > 5){
 					curDay = 1;
 				}
