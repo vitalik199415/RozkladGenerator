@@ -2,8 +2,6 @@ package tools;
 
 public class Week {
 
-	public float qualityFactor;
-	
 	private DayOfWeek mon;
 	private DayOfWeek tue;
 	private DayOfWeek wed;
@@ -47,11 +45,7 @@ public class Week {
 		} 
 		return someDay; 
 	}
-	
-	public void calculateQuality(){
-		
-	} 
-	
+
 	public DayOfWeek getMon() {
 		return mon;
 	}

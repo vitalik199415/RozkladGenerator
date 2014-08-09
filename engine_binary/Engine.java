@@ -19,6 +19,7 @@ public class Engine {
 	public ArrayList<Teacher> 	teachArray;
 	public ArrayList<Subject> 	subjArray;
 	public ArrayList<Group> 	groupArray;
+	private Random rand = new Random();
 	
 	public ArrayList<TimeTable> timeTable;
 	
@@ -44,17 +45,20 @@ public class Engine {
 	}
 	
 	private int getRandomSubject(ArrayList<Subject> list){
-		Random r = new Random();
-		if (list.size() == 1) 
-			return 0;
-		if (list.size() < 1){
-			throw new Error("Закінчився список предметів (((");
-		}
-		return r.nextInt(list.size());
 		
+		int result;
+		if (list.size() == 1){
+			return 0;
+		}else if (list.size() < 1){
+			throw new Error("Закінчився список предметів (((");
+		}else {
+			result = rand.nextInt(list.size()-1);
+		} 
+		System.out.println("Size: "+list.size()+ "random: " +result);
+		return result;
 	}
 	
-	private void traceDatabaseIntoClassesStructure(){
+	public void traceDatabaseIntoClassesStructure(){
 		this.roomArray 	= new ArrayList<Room>	(conn.getRoomList	());
 		this.teachArray = new ArrayList<Teacher>(conn.getTeacherList());
 		this.subjArray 	= new ArrayList<Subject>(conn.getSubjectList());
@@ -64,8 +68,7 @@ public class Engine {
 	}
 	
 	public void generateStartup(){
-		
-		this.traceDatabaseIntoClassesStructure();
+//		this.traceDatabaseIntoClassesStructure();
 		int idInList = 0, curDay = 0;
 		TimeTable tmtbl;
 		boolean inFirst; // умова вибору місця встаки предмету, який чергується
