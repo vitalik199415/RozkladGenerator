@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import engine_binary.Engine;
 import tools.Config;
-import tools.TimeTable;
-import tools.Week;
 
 public class Generation {
 
@@ -14,14 +12,13 @@ public class Generation {
 	public void generateFirstGeneration(){
 		Engine e =  new Engine();
 		e.traceDatabaseIntoClassesStructure();
-		while (timeTableArr.size() < Config.GENERATION_SIZE){
+		while (timeTableArr.size() <= Config.GENERATION_SIZE){
 			e.generateStartup();
 			this.timeTableArr.add(new GenerationItem(e.timeTable));
 		}
 	}
 	
 	public void sort(){
-		
 		GenerationItem tempItem;
 		for (int i = 0; i < this.timeTableArr.size(); i++){
 			for (int j = 1; j < this.timeTableArr.size(); j++){

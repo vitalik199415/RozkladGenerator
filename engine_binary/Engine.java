@@ -19,7 +19,6 @@ public class Engine {
 	public ArrayList<Teacher> 	teachArray;
 	public ArrayList<Subject> 	subjArray;
 	public ArrayList<Group> 	groupArray;
-	private Random rand = new Random();
 	
 	public ArrayList<TimeTable> timeTable;
 	
@@ -45,7 +44,7 @@ public class Engine {
 	}
 	
 	private int getRandomSubject(ArrayList<Subject> list){
-		
+		Random rand = new Random();
 		int result;
 		if (list.size() == 1){
 			return 0;
@@ -73,15 +72,21 @@ public class Engine {
 		TimeTable tmtbl;
 		boolean inFirst; // умова вибору м≥сц€ встаки предмету, €кий чергуЇтьс€
 		OneSubject oneSubj;
-		ArrayList<Subject> subjectTaughtList;
+		ArrayList<Subject> subjectTaughtList = new ArrayList<>(10);
 
 		for (Group group: this.groupArray){
+			System.out.println("In group");
 			tmtbl = new TimeTable(4);
 			inFirst = true;
 			curDay = 1;
-			subjectTaughtList = group.getSubjectsTaught();
+			
+//			subjectTaughtList = group.getSubjectsTaught();
+			subjectTaughtList.addAll(group.getSubjectsTaught());
+			System.out.println("subjTaugh: "+subjectTaughtList.size());
+			
 
 			while (subjectTaughtList.size() > 0){
+				System.out.println("in while");
 				if (curDay > 5){
 					curDay = 1;
 				}
@@ -117,6 +122,8 @@ public class Engine {
 			this.timeTable.add(tmtbl);
 			tmtbl = null;
 		}
+		subjectTaughtList = null;
+		System.out.println("END generatioon");
 
 	}
 
