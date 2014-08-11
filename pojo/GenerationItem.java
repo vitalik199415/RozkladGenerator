@@ -18,7 +18,7 @@ public class GenerationItem {
 		this.calculateQuality();
 	}
 	
-	private void calculateQuality(){
+	public void calculateQuality(){
 		float pokaz;
 		pokaz = new LoadingRoom().calc(this.timeTable);
 		float _qual1 = (100f + pokaz) / (pokaz + 1.0f);
