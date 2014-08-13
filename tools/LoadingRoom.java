@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 import database.Connector;
 import pojo.Room;
 
 public class LoadingRoom implements Criteria {
 
-	private Map loading = new HashMap <Integer,Integer>();
+	private Map<Integer, Integer> loading = new HashMap <Integer,Integer>();
 			
 	public LoadingRoom() {
 		Connector conn = Connector.getConnection();

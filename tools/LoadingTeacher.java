@@ -11,7 +11,6 @@ public class LoadingTeacher implements Criteria{
 
 		for(int i = 0; i < timeTable.size(); i++){
 			for(int i2 = i+1; i2 < timeTable.size(); i2++){
-		
 				for (int j = 0; j < timeTable.get(i).getWeekA().getMon().getSubjects().size(); j++){
 					for (int j2 = j; j2 < timeTable.get(i2).getWeekA().getMon().getSubjects().size(); j2++){
 						if (timeTable.get(i).getWeekA().getMon().getSubjects().get(j).idTeach == timeTable.get(i2).getWeekA().getMon().getSubjects().get(j2).idTeach){
