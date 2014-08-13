@@ -22,6 +22,10 @@ public class Engine {
 	
 	public ArrayList<TimeTable> timeTable;
 	
+	public Engine(){
+		this.traceDatabaseIntoClassesStructure();
+	}
+	
 	private Boolean getIsLectionById(int _id){
 		for (Subject subj: subjArray){
 			if (subj.getId() == _id)
@@ -53,7 +57,7 @@ public class Engine {
 		}else {
 			result = rand.nextInt(list.size()-1);
 		} 
-		System.out.println("Size: "+list.size()+ "random: " +result);
+//		System.out.println("Size: "+list.size()+ "random: " +result);
 		return result;
 	}
 	
@@ -63,11 +67,12 @@ public class Engine {
 		this.subjArray 	= new ArrayList<Subject>(conn.getSubjectList());
 		this.groupArray = new ArrayList<Group>	(conn.getAllGroupList());
 		//створемо к≥льк≥сть розклад≥в, що р≥вна к≥лькост≥ груп
-		this.timeTable =  new ArrayList<TimeTable>(this.groupArray.size());
+		
 	}
 	
 	public void generateStartup(){
 //		this.traceDatabaseIntoClassesStructure();
+		this.timeTable =  new ArrayList<TimeTable>(this.groupArray.size());
 		int idInList = 0, curDay = 0;
 		TimeTable tmtbl;
 		boolean inFirst; // умова вибору м≥сц€ встаки предмету, €кий чергуЇтьс€
@@ -75,18 +80,18 @@ public class Engine {
 		ArrayList<Subject> subjectTaughtList = new ArrayList<>(10);
 
 		for (Group group: this.groupArray){
-			System.out.println("In group");
+//			System.out.println("In group");
 			tmtbl = new TimeTable(4);
 			inFirst = true;
 			curDay = 1;
 			
 //			subjectTaughtList = group.getSubjectsTaught();
 			subjectTaughtList.addAll(group.getSubjectsTaught());
-			System.out.println("subjTaugh: "+subjectTaughtList.size());
+//			System.out.println("subjTaugh: "+subjectTaughtList.size());
 			
 
 			while (subjectTaughtList.size() > 0){
-				System.out.println("in while");
+//				System.out.println("in while");
 				if (curDay > 5){
 					curDay = 1;
 				}

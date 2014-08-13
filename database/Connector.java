@@ -424,7 +424,7 @@ public class Connector {
 				arr.add(someRoom);
 				someRoom = null;
 			}
-			System.out.println(GET_All_ROOM_LIST + " Succesfull!");
+			//System.out.println(GET_All_ROOM_LIST + " Succesfull!");
 			return arr;
 		} catch (SQLException e) {
 			e.printStackTrace();
