@@ -29,4 +29,16 @@ public class GenerationItem {
 		this.quality = (_qual1 + _qual2) / 2f;
 		
 	}
+
+	@Override
+	public String toString() {
+		String result = "";
+		for (TimeTable tmtbl: this.timeTable){
+			result +=  tmtbl.toString();
+		}
+		return result;
+	}
+	
+	
+
 }

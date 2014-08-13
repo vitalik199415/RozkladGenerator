@@ -22,7 +22,7 @@ public class Generation {
 		}
 	}
 	
-	public void calculateQuality(){
+	private void calculateQuality(){
 		for (GenerationItem item: this.timeTableArr){
 			item.calculateQuality();
 		}
@@ -38,6 +38,7 @@ public class Generation {
 	}
 	
 	public void sort(){
+		this.calculateQuality();
 		GenerationItem tempItem;
 		for (int i = 0; i < this.timeTableArr.size(); i++){
 			for (int j = 1; j < this.timeTableArr.size(); j++){

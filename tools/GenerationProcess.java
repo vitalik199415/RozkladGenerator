@@ -6,16 +6,16 @@ public class GenerationProcess {
 
 	
 	public static void startProcess(){
-		int iterCount = 100;
+		int iterCount = 5;
 		long timeout = System.currentTimeMillis();
 		
 		Generation gen = new Generation();
-		gen.sort();
+
 		while (gen.fitness() && (iterCount > 1)){
 			gen.crossover();
-			gen.calculateQuality();
-			gen.sort();
+			gen.sort(); // підраховується якітсь, та сортується розклад
 			--iterCount;
+			System.out.println(gen.timeTableArr.toString());
 		}
 		timeout = System.currentTimeMillis()-timeout;
 		System.out.println("TimeGeneerating: "+timeout);

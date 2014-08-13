@@ -30,6 +30,10 @@ public class TimeTable {
 
 	@Override
 	public String toString() {
-		return weekA.toString() + "___________________________\n" + weekB.toString(); 
+		String result = "Тиждень А\n----------------------------------------------------------\n";
+		result += weekA.toString();
+		result += "Тиждень B\n----------------------------------------------------------\n";
+		result += weekB.toString()+ "\n";
+		return result; 
 	}
 }

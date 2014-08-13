@@ -38,7 +38,7 @@ public class Week {
 		DayOfWeek someDay = null;
 		switch (ident){
 		case 1:{someDay = this.getMon(); break;} 
-		case 2:{someDay = this.getThu(); break;} 
+		case 2:{someDay = this.getTue(); break;} 
 		case 3:{someDay = this.getWed(); break;} 
 		case 4:{someDay = this.getThu(); break;} 
 		case 5:{someDay = this.getFri(); break;} 

@@ -481,7 +481,7 @@ public class Connector {
 				arr.add(someSubj);
 				someSubj = null;    
 			}
-			System.out.println(GET_SUBJECT_LIST + " Succesfull!");
+//			System.out.println(GET_SUBJECT_LIST + " Succesfull!");
 			return arr;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -545,7 +545,7 @@ public class Connector {
 	public TeacherInfo getTeacherById(int id){
 		TeacherInfo someTeacher = null;
 		
-		final String GET_TEACHER_BY_ID = "SELECT FROM teacher WHERE teach_id =" + id;
+		final String GET_TEACHER_BY_ID = "SELECT * FROM teacher WHERE teach_id =" + id;
 		try {
 			this.ps = this.db.prepareStatement(GET_TEACHER_BY_ID);
 			this.rs = this.ps.executeQuery();
@@ -554,10 +554,10 @@ public class Connector {
 				someTeacher.setId(rs.getInt("teach_id"));
 				someTeacher.setSurname(rs.getString("teach_surname").trim());
 				someTeacher.setName(rs.getString("teach_name").trim());
-				someTeacher.setFname(rs.getString("teach_fname").trim());
+				someTeacher.setFname(rs.getString("teach_father_name").trim());
 				someTeacher.setTel(rs.getString("teach_tel").trim());
 			}
-			System.out.println(GET_TEACHER_BY_ID + " Succesfull!");
+//			System.out.println(GET_TEACHER_BY_ID + " Succesfull!");
 			return someTeacher;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -572,7 +572,7 @@ public class Connector {
 	public GroupInfo getGroupById(int id){
 		GroupInfo someGroup = null;
 		
-		final String GET_GROUP_BY_ID = "SELECT FROM \"group\" WHERE group_id =" + id;
+		final String GET_GROUP_BY_ID = "SELECT * FROM \"group\" WHERE group_id =" + id;
 		try {
 			this.ps = this.db.prepareStatement(GET_GROUP_BY_ID);
 			this.rs = this.ps.executeQuery();
@@ -583,7 +583,7 @@ public class Connector {
 				someGroup.setCount(rs.getString("group_count_stud").trim());
 				someGroup.setIdfac(rs.getString("group_id_facult").trim());
 			}
-			System.out.println(GET_GROUP_BY_ID + " Succesfull!");
+//			System.out.println(GET_GROUP_BY_ID + " Succesfull!");
 			return someGroup;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -598,7 +598,7 @@ public class Connector {
 	public RoomInfo getRoomById(int id){
 		RoomInfo someRoom = null;
 		
-		final String GET_ROOM_BY_ID = "SELECT FROM room WHERE room_id =" + id;
+		final String GET_ROOM_BY_ID = "SELECT * FROM room WHERE room_id =" + id;
 		try{
 			this.ps = this.db.prepareStatement(GET_ROOM_BY_ID);
 			this.rs = this.ps.executeQuery();
@@ -609,7 +609,7 @@ public class Connector {
 				someRoom.setIslab(rs.getString("room_isLaboratory").trim());
 				someRoom.setCount(rs.getString("room_count_seating").trim());
 			}
-			System.out.println(GET_ROOM_BY_ID + " Succefull!");
+//			System.out.println(GET_ROOM_BY_ID + " Succefull!");
 			return someRoom;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -624,7 +624,7 @@ public class Connector {
 	public SubjectInfo getSubjectById(int id){
 		SubjectInfo someSubject = null;
 		
-		final String GET_SUBJECT_BY_ID = "SELECT FROM subject WHERE subj_id =" + id;
+		final String GET_SUBJECT_BY_ID = "SELECT * FROM subject WHERE subj_id =" + id;
 		try {
 			this.ps = this.db.prepareStatement(GET_SUBJECT_BY_ID);
 			this.rs = this.ps.executeQuery();
@@ -637,7 +637,7 @@ public class Connector {
 				someSubject.setIslect(rs.getString("subj_is_lection").trim());
 				someSubject.setIdteach(rs.getString("subj_id_teacher").trim());
 			}
-			System.out.println(GET_SUBJECT_BY_ID + " Succesfull!");
+//			System.out.println(GET_SUBJECT_BY_ID + " Succesfull!");
 			return someSubject;
 		} catch (SQLException e) {
 			e.printStackTrace();

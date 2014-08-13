@@ -71,7 +71,6 @@ public class Engine {
 	}
 	
 	public void generateStartup(){
-//		this.traceDatabaseIntoClassesStructure();
 		this.timeTable =  new ArrayList<TimeTable>(this.groupArray.size());
 		int idInList = 0, curDay = 0;
 		TimeTable tmtbl;
@@ -80,18 +79,13 @@ public class Engine {
 		ArrayList<Subject> subjectTaughtList = new ArrayList<>(10);
 
 		for (Group group: this.groupArray){
-//			System.out.println("In group");
 			tmtbl = new TimeTable(4);
 			inFirst = true;
 			curDay = 1;
 			
-//			subjectTaughtList = group.getSubjectsTaught();
 			subjectTaughtList.addAll(group.getSubjectsTaught());
-//			System.out.println("subjTaugh: "+subjectTaughtList.size());
-			
 
 			while (subjectTaughtList.size() > 0){
-//				System.out.println("in while");
 				if (curDay > 5){
 					curDay = 1;
 				}
