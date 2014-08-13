@@ -25,4 +25,16 @@ public class DayOfWeek {
 		return subjects;
 	}
 
+	@Override
+	public String toString() {
+		String result = "";
+		for (OneSubject subj:this.subjects) {
+			result += subj.toString() + "\n";
+		}
+		
+		return result;
+		
+	}
+
+	
 }

@@ -27,6 +27,9 @@ public class TimeTable {
 	public void setWeekB(Week weekB) {
 		this.weekB = weekB;
 	}
-	
 
+	@Override
+	public String toString() {
+		return weekA.toString() + "___________________________\n" + weekB.toString(); 
+	}
 }

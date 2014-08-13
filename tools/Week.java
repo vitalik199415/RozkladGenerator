@@ -66,6 +66,17 @@ public class Week {
 		return fri;
 	}
 
+	@Override
+	public String toString() {
+		String result = "";
+		result += "Понеділок\n" + mon.toString();
+		result += "Вівторок\n" + tue.toString();
+		result += "Середа\n" + wed.toString();
+		result += "Четвер\n" + thu.toString();
+		result += "П'ятниця\n" + fri.toString();
+		return result;
+	}
+
 	
 	
 }

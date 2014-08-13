@@ -1,6 +1,8 @@
 package database;
 import java.sql.Connection;
+
 import tools.Config;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import pojo.*;
+import pojoFullInfo.GroupInfo;
+import pojoFullInfo.RoomInfo;
+import pojoFullInfo.SubjectInfo;
+import pojoFullInfo.TeacherInfo;
 
 /**
  * @author Andriy
@@ -536,6 +542,112 @@ public class Connector {
 		return arr;
 	}
 	
+	public TeacherInfo getTeacherById(int id){
+		TeacherInfo someTeacher = null;
+		
+		final String GET_TEACHER_BY_ID = "SELECT FROM teacher WHERE teach_id =" + id;
+		try {
+			this.ps = this.db.prepareStatement(GET_TEACHER_BY_ID);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someTeacher = new TeacherInfo();
+				someTeacher.setId(rs.getInt("teach_id"));
+				someTeacher.setSurname(rs.getString("teach_surname").trim());
+				someTeacher.setName(rs.getString("teach_name").trim());
+				someTeacher.setFname(rs.getString("teach_fname").trim());
+				someTeacher.setTel(rs.getString("teach_tel").trim());
+			}
+			System.out.println(GET_TEACHER_BY_ID + " Succesfull!");
+			return someTeacher;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_TEACHER_BY_ID + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+		}
+		return someTeacher;
+	}
+	
+	public GroupInfo getGroupById(int id){
+		GroupInfo someGroup = null;
+		
+		final String GET_GROUP_BY_ID = "SELECT FROM \"group\" WHERE group_id =" + id;
+		try {
+			this.ps = this.db.prepareStatement(GET_GROUP_BY_ID);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someGroup = new GroupInfo();
+				someGroup.setId(rs.getInt("group_id"));
+				someGroup.setName(rs.getString("group_name").trim());
+				someGroup.setCount(rs.getString("group_count_stud").trim());
+				someGroup.setIdfac(rs.getString("group_id_facult").trim());
+			}
+			System.out.println(GET_GROUP_BY_ID + " Succesfull!");
+			return someGroup;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_GROUP_BY_ID + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+		}
+		return someGroup;
+	}
+	
+	public RoomInfo getRoomById(int id){
+		RoomInfo someRoom = null;
+		
+		final String GET_ROOM_BY_ID = "SELECT FROM room WHERE room_id =" + id;
+		try{
+			this.ps = this.db.prepareStatement(GET_ROOM_BY_ID);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someRoom = new RoomInfo();
+				someRoom.setId(rs.getInt("room_id"));
+				someRoom.setName(rs.getString("room_name").trim());
+				someRoom.setIslab(rs.getString("room_isLaboratory").trim());
+				someRoom.setCount(rs.getString("room_count_seating").trim());
+			}
+			System.out.println(GET_ROOM_BY_ID + " Succefull!");
+			return someRoom;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_ROOM_BY_ID + " FALLING DOWN!!!");
+		} finally{
+			this.rs = null;
+			this.ps = null;
+		}
+		return someRoom;
+	}
+	
+	public SubjectInfo getSubjectById(int id){
+		SubjectInfo someSubject = null;
+		
+		final String GET_SUBJECT_BY_ID = "SELECT FROM subject WHERE subj_id =" + id;
+		try {
+			this.ps = this.db.prepareStatement(GET_SUBJECT_BY_ID);
+			this.rs = this.ps.executeQuery();
+			while (this.rs.next()) {
+				someSubject = new SubjectInfo();
+				someSubject.setId(rs.getInt("subj_id"));
+				someSubject.setName(rs.getString("subj_name").trim());
+				someSubject.setSname(rs.getString("subj_short").trim());
+				someSubject.setCount(rs.getString("subj_count_hour").trim());
+				someSubject.setIslect(rs.getString("subj_is_lection").trim());
+				someSubject.setIdteach(rs.getString("subj_id_teacher").trim());
+			}
+			System.out.println(GET_SUBJECT_BY_ID + " Succesfull!");
+			return someSubject;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(GET_SUBJECT_BY_ID + " FALLING DOWN!!!");
+		} finally {
+			this.rs = null;
+			this.ps = null;
+		}
+		return someSubject;
+	}
 	
 	/**
 	 * class ConnectionInstanceHolder 
