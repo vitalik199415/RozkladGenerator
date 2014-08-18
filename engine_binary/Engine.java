@@ -5,7 +5,10 @@ import pojo.*;
 import tools.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+
 
 /**
  * @author Andriy
@@ -14,6 +17,8 @@ import java.util.Random;
 public class Engine {
 
 	private final Connector 	conn = Connector.getConnection();
+	
+	public Map<Integer, Integer> loadRoom = new HashMap<Integer, Integer>();
 
 	public ArrayList<Room> 		roomArray;
 	public ArrayList<Teacher> 	teachArray;
@@ -34,17 +39,49 @@ public class Engine {
 		throw new Error("Не знайдено жодного співпадіння в переліку предметів!!!");
 	}
 	
-	private int getPossibleRoom(Boolean isLection){
-		Random r = new Random();
-		int result;
-		do {
-			result = r.nextInt(this.roomArray.size()-1);
-			if (this.roomArray.get(result).getIsLaboratory() == isLection)
-				continue;
-			else 
-				break;
-		} while (true);
-		return this.roomArray.get(result).getId();
+	private int getPossibleRoom(Group group, Boolean isLection){
+		ArrayList<Room> possibleRoom = new ArrayList<>(); 
+		for (Room room: this.roomArray){
+			if ( (room.getCount_seating() >= group.getCountStud() ) && ( room.getIsLaboratory() != isLection )){
+				possibleRoom.add(room);
+			}
+		}
+		System.out.println("pos size: "+ possibleRoom.size());
+		
+		if (possibleRoom.size() <= 0){
+			Random r = new Random();
+			int result;
+			do {
+				result = r.nextInt(this.roomArray.size()-1);
+				if (this.roomArray.get(result).getIsLaboratory() == isLection)
+					continue;
+				else 
+					break;
+			} while (true);
+			return this.roomArray.get(result).getId();
+		}
+		
+		int min = Integer.MAX_VALUE-1, idRoom = Integer.MAX_VALUE-1;
+		
+		for (Room room: possibleRoom){
+			if (this.loadRoom.get(room.getId()) < min ){
+				min = this.loadRoom.get(room.getId());
+				idRoom = room.getId();
+			}
+		}
+		
+
+		if (this.loadRoom.get(idRoom) != null){
+			int value = this.loadRoom.get(idRoom);
+			this.loadRoom.put(idRoom, value+1);
+			return idRoom;
+		} else {
+			throw new Error("НЕ вийшло визначити аудиторію для проведення пари в групі: " + group.getId() + " " + isLection) ;
+		}
+			
+		
+		
+		
 	}
 	
 	private int getRandomSubject(ArrayList<Subject> list){
@@ -66,25 +103,38 @@ public class Engine {
 		this.teachArray = new ArrayList<Teacher>(conn.getTeacherList());
 		this.subjArray 	= new ArrayList<Subject>(conn.getSubjectList());
 		this.groupArray = new ArrayList<Group>	(conn.getAllGroupList());
-		//створемо кількість розкладів, що рівна кількості груп
 		
+		for (Room room: this.roomArray){
+			this.loadRoom.put(room.getId(), 0);
+		}
 	}
 	
 	public void generateStartup(){
+		this.timeTable = null;
 		this.timeTable =  new ArrayList<TimeTable>(this.groupArray.size());
+		for (Integer value: this.loadRoom.values()){
+			value = 0;
+		}
 		int idInList = 0, curDay = 0;
 		TimeTable tmtbl;
 		boolean inFirst; // умова вибору місця встаки предмету, який чергується
 		OneSubject oneSubj;
 		ArrayList<Subject> subjectTaughtList = new ArrayList<>(10);
 
+	
+		
 		for (Group group: this.groupArray){
 			tmtbl = new TimeTable(4);
 			inFirst = true;
 			curDay = 1;
 			
+			
 			subjectTaughtList.addAll(group.getSubjectsTaught());
-
+//			System.out.println("idGroup: "+group.getId());
+//			for (Subject s: subjectTaughtList){
+//				System.out.println(s.getId()+ " HOUR: "+s.getCountHour()+ " INWEEK: "+s.getHourInWeek());
+//			}
+			
 			while (subjectTaughtList.size() > 0){
 				if (curDay > 5){
 					curDay = 1;
@@ -94,9 +144,9 @@ public class Engine {
 				oneSubj.idGroup = group.getId();
 				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
 				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
-				oneSubj.idRoom = getPossibleRoom(getIsLectionById(oneSubj.idSubj));
+				oneSubj.idRoom = getPossibleRoom(group, getIsLectionById(oneSubj.idSubj));
 				
-				if (subjectTaughtList.get(idInList).getHourInWeek() <= 1){
+				if (subjectTaughtList.get(idInList).getHourInWeek() < 2){
 					if (inFirst){
 						tmtbl.getWeekA().getDayById(curDay).addSubj(oneSubj);
 					} else {
@@ -105,6 +155,7 @@ public class Engine {
 					inFirst = !inFirst; 
 					curDay++;
 					subjectTaughtList.remove(idInList);
+					oneSubj = null;
 					continue;
 				}
 					tmtbl.getWeekA().getDayById(curDay).addSubj(oneSubj);
@@ -113,6 +164,7 @@ public class Engine {
 					
 				if (subjectTaughtList.get(idInList).getHourInWeek() > 2){
 					subjectTaughtList.get(idInList).setHourInWeek(subjectTaughtList.get(idInList).getHourInWeek()-2);
+					oneSubj = null;
 					continue;
 				}
 				subjectTaughtList.remove(idInList);
@@ -122,8 +174,6 @@ public class Engine {
 			tmtbl = null;
 		}
 		subjectTaughtList = null;
-		System.out.println("END generatioon");
-
 	}
 
 }

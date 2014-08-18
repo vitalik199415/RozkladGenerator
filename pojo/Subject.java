@@ -1,5 +1,8 @@
 package pojo;
 
+import tools.Config;
+
+
 public class Subject{
 	
 	private int 	id;
@@ -21,6 +24,7 @@ public class Subject{
 	}
 	public void setCountHour(int count_hour) {
 		this.countHour = count_hour;
+		this.hourInWeek = this.countHour / Config.COUNT_WEEKS_IN_FIRST_SEMESTR;
 	}
 	public Boolean getIsLection() {
 		return isLection;

@@ -474,9 +474,8 @@ public class Connector {
 				someSubj = new Subject();
 				someSubj.setId(rs.getInt("subj_id"));
 				someSubj.setCountHour(rs.getInt("subj_count_hour"));
-				someSubj.setHourInWeek(someSubj.getCountHour() / Config.COUNT_WEEKS_IN_FIRST_SEMESTR);
+				//someSubj.setHourInWeek(someSubj.getCountHour() / Config.COUNT_WEEKS_IN_FIRST_SEMESTR);
 				someSubj.setIdTeach(rs.getInt("subj_id_teacher"));
-				
 				someSubj.setIsLection(rs.getBoolean("subj_is_lection"));
 				arr.add(someSubj);
 				someSubj = null;    
@@ -632,9 +631,9 @@ public class Connector {
 				someSubject = new SubjectInfo();
 				someSubject.setId(rs.getInt("subj_id"));
 				someSubject.setName(rs.getString("subj_name").trim());
-				someSubject.setSname(rs.getString("subj_short").trim());
+				someSubject.setShortName(rs.getString("subj_short").trim());
 				someSubject.setCount(rs.getString("subj_count_hour").trim());
-				someSubject.setIslect(rs.getString("subj_is_lection").trim());
+				someSubject.setIsLection(rs.getBoolean("subj_is_lection"));
 				someSubject.setIdteach(rs.getString("subj_id_teacher").trim());
 			}
 //			System.out.println(GET_SUBJECT_BY_ID + " Succesfull!");

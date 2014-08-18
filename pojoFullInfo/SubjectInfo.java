@@ -4,10 +4,10 @@ public class SubjectInfo {
 	
 	private int id;
 	private String name;
-	private String sname;
+	private String shortName;
 	private String count;
-	private String islect;
-	private String idteach;
+	private Boolean isLection;
+	private String idTeach;
 	
 	public int getId() {
 		return id;
@@ -21,11 +21,11 @@ public class SubjectInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSname() {
-		return sname;
+	public String getShortName() {
+		return shortName;
 	}
-	public void setSname(String sname) {
-		this.sname = sname;
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 	public String getCount() {
 		return count;
@@ -33,17 +33,17 @@ public class SubjectInfo {
 	public void setCount(String count) {
 		this.count = count;
 	}
-	public String getIslect() {
-		return islect;
+	public Boolean getIsLection() {
+		return isLection;
 	}
-	public void setIslect(String islect) {
-		this.islect = islect;
+	public void setIsLection(Boolean isLect) {
+		this.isLection = isLect;
 	}
-	public String getIdteach() {
-		return idteach;
+	public String getIdTeach() {
+		return idTeach;
 	}
-	public void setIdteach(String idteach) {
-		this.idteach = idteach;
+	public void setIdteach(String idTeach) {
+		this.idTeach = idTeach;
 	}
 	
 	

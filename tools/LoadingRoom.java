@@ -136,12 +136,12 @@ public class LoadingRoom implements Criteria {
 			}
 		}		
 		
-//		Iterator<Map.Entry<Integer, Integer>> it = loading.entrySet().iterator();
-//		
-//		while (it.hasNext()){
-//			System.out.println(it.next());
-//			
-//		}
+		Iterator<Map.Entry<Integer, Integer>> it = loading.entrySet().iterator();
+		
+		while (it.hasNext()){
+			System.out.println(it.next());
+			
+		}
 		return countEquals;
 	}
 

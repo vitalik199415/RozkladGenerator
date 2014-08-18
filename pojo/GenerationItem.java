@@ -2,7 +2,6 @@ package pojo;
 
 import java.util.ArrayList;
 
-import tools.Config;
 import tools.LoadingRoom;
 import tools.LoadingTeacher;
 import tools.TimeTable;
@@ -11,10 +10,17 @@ public class GenerationItem {
 	
 	public float quality = 0; // 100 - ідеальний розклад 	
 	
-	public ArrayList<TimeTable> timeTable = new ArrayList<>(Config.GENERATION_SIZE);
+	public byte penalty = 0;
+	
+	public ArrayList<TimeTable> timeTable = new ArrayList<>();
 
+	public GenerationItem(){
+		
+	}
+	
 	public GenerationItem(ArrayList<TimeTable> tmtbl){
-		this.timeTable = tmtbl;
+		this.timeTable.clear();
+		this.timeTable.addAll(tmtbl);
 		this.calculateQuality();
 	}
 	

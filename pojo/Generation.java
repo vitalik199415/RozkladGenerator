@@ -1,12 +1,18 @@
 package pojo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import engine_binary.Engine;
 import tools.*;
 
 public class Generation {
+	
+	public ArrayList<Room> 		roomArray;
+	public ArrayList<Teacher> 	teachArray;
+	public ArrayList<Subject> 	subjArray;
+	public ArrayList<Group> 	groupArray;
 
 	public ArrayList<GenerationItem> timeTableArr = new ArrayList<>(Config.GENERATION_SIZE);
 
@@ -16,6 +22,11 @@ public class Generation {
 	
 	private void generateFirstGeneration(){
 		Engine e = new Engine();
+		this.groupArray = e.groupArray;
+		this.roomArray = e.roomArray;
+		this.subjArray = e.subjArray;
+		this.teachArray = e.teachArray;
+			
 		while (timeTableArr.size() <= Config.GENERATION_SIZE){
 			e.generateStartup();
 			this.timeTableArr.add(new GenerationItem(e.timeTable));
@@ -56,192 +67,246 @@ public class Generation {
 		System.out.println("_______________________");
 	}
 	
-	private int getRandomSubject(ArrayList<OneSubject> list){
-		Random rand = new Random();
-		int result;
-		if (list.size() == 1){
-			return 0;
-		}else if (list.size() < 1){
-			throw new Error("Закінчився список предметів (((");
-		}else {
-			result = rand.nextInt(list.size()-1);
-		} 
-		return result;
-	}
+//	private int getRandomSubject(ArrayList<OneSubject> list){
+//		Random rand = new Random();
+//		int result;
+//		if (list.size() == 1){
+//			return 0;
+//		}else if (list.size() < 1){
+//			throw new Error("Закінчився список предметів (((");
+//		}else {
+//			result = rand.nextInt(list.size()-1);
+//		} 
+//		return result;
+//	}
 	
+//	public void crossover(){
+//	
+//		ArrayList<OneSubject> subjBuffer = new ArrayList<>();  
+//		
+//		OneSubject objectToCompare = new OneSubject();
+//		objectToCompare.idGroup = 0;
+//		objectToCompare.idRoom = 0;
+//		objectToCompare.idSubj = 0;
+//		objectToCompare.idTeach = 0;
+//		
+//		Random rand = new Random();
+//		for (GenerationItem item: this.timeTableArr){
+//			for (TimeTable tmtbl: item.timeTable){
+//				// з 33% ймовірністю вибираємо предмети, та встановлюємо їх значення в null
+//				subjBuffer.clear();
+//				for (int i = 0; i < tmtbl.getWeekA().getMon().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekA().getMon().getSubjects().get(i));
+//						tmtbl.getWeekA().getMon().getSubjects().set(i, objectToCompare);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekA().getTue().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekA().getTue().getSubjects().get(i));
+//						tmtbl.getWeekA().getTue().getSubjects().set(i, objectToCompare);
+//					}
+//				}	
+//				for (int i = 0; i < tmtbl.getWeekA().getWed().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekA().getWed().getSubjects().get(i));
+//						tmtbl.getWeekA().getWed().getSubjects().set(i, objectToCompare);
+//					}
+//				}	
+//				for (int i = 0; i < tmtbl.getWeekA().getThu().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekA().getThu().getSubjects().get(i));
+//						tmtbl.getWeekA().getThu().getSubjects().set(i, objectToCompare);
+//					}
+//				}	
+//				for (int i = 0; i < tmtbl.getWeekA().getFri().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekA().getFri().getSubjects().get(i));
+//						tmtbl.getWeekA().getFri().getSubjects().set(i, objectToCompare);
+//					}
+//				}
+//				
+//				//Знаходимо всі null елементи, та замінюємо випадковим зі списку subjBuffer
+//				for (int i = 0; i < tmtbl.getWeekA().getMon().getSubjects().size(); i++){
+//					if (tmtbl.getWeekA().getMon().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekA().getMon().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekA().getTue().getSubjects().size(); i++){
+//					if (tmtbl.getWeekA().getTue().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekA().getTue().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekA().getWed().getSubjects().size(); i++){
+//					if (tmtbl.getWeekA().getWed().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekA().getWed().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekA().getThu().getSubjects().size(); i++){
+//					if (tmtbl.getWeekA().getThu().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekA().getThu().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekA().getFri().getSubjects().size(); i++){
+//					if (tmtbl.getWeekA().getFri().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekA().getFri().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				
+//				subjBuffer.clear();
+//				// те саме тільки для тижня WeekB
+//				for (int i = 0; i < tmtbl.getWeekB().getMon().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekB().getMon().getSubjects().get(i));
+//						tmtbl.getWeekB().getMon().getSubjects().set(i, objectToCompare);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekB().getTue().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekB().getTue().getSubjects().get(i));
+//						tmtbl.getWeekB().getTue().getSubjects().set(i, objectToCompare);
+//					}
+//				}	
+//				for (int i = 0; i < tmtbl.getWeekB().getWed().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekB().getWed().getSubjects().get(i));
+//						tmtbl.getWeekB().getWed().getSubjects().set(i, objectToCompare);
+//					}
+//				}	
+//				for (int i = 0; i < tmtbl.getWeekB().getThu().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekB().getThu().getSubjects().get(i));
+//						tmtbl.getWeekB().getThu().getSubjects().set(i, objectToCompare);
+//					}
+//				}	
+//				for (int i = 0; i < tmtbl.getWeekB().getFri().getSubjects().size(); i++){
+//					if (rand.nextInt(10) < 4){
+//						subjBuffer.add(tmtbl.getWeekB().getFri().getSubjects().get(i));
+//						tmtbl.getWeekB().getFri().getSubjects().set(i, objectToCompare);
+//					}
+//				}
+//				//Знаходимо всі null елементи, та замінюємо випадковим зі списку subjBuffer
+//				for (int i = 0; i < tmtbl.getWeekB().getMon().getSubjects().size(); i++){
+//					if (tmtbl.getWeekB().getMon().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekB().getMon().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekB().getTue().getSubjects().size(); i++){
+//					if (tmtbl.getWeekB().getTue().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekB().getTue().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekB().getWed().getSubjects().size(); i++){
+//					if (tmtbl.getWeekB().getWed().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekB().getWed().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekB().getThu().getSubjects().size(); i++){
+//					if (tmtbl.getWeekB().getThu().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekB().getThu().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//				for (int i = 0; i < tmtbl.getWeekB().getFri().getSubjects().size(); i++){
+//					if (tmtbl.getWeekB().getFri().getSubjects().get(i).equals(objectToCompare)){
+//						int index = getRandomSubject(subjBuffer);
+//						tmtbl.getWeekB().getFri().getSubjects().set(i, subjBuffer.get(index));
+//						if (subjBuffer.size() > 0)
+//							subjBuffer.remove(index);
+//					}
+//				}
+//			}
+//		}
+//	}
+
 	public void crossover(){
-	
-		ArrayList<OneSubject> subjBuffer = new ArrayList<>();  
-		
-		OneSubject objectToCompare = new OneSubject();
-		objectToCompare.idGroup = 0;
-		objectToCompare.idRoom = 0;
-		objectToCompare.idSubj = 0;
-		objectToCompare.idTeach = 0;
-		
-		Random rand = new Random();
-		for (GenerationItem item: this.timeTableArr){
-			for (TimeTable tmtbl: item.timeTable){
-				// з 33% ймовірністю вибираємо предмети, та встановлюємо їх значення в null
-				subjBuffer.clear();
-				for (int i = 0; i < tmtbl.getWeekA().getMon().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekA().getMon().getSubjects().get(i));
-						tmtbl.getWeekA().getMon().getSubjects().set(i, objectToCompare);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekA().getTue().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekA().getTue().getSubjects().get(i));
-						tmtbl.getWeekA().getTue().getSubjects().set(i, objectToCompare);
-					}
-				}	
-				for (int i = 0; i < tmtbl.getWeekA().getWed().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekA().getWed().getSubjects().get(i));
-						tmtbl.getWeekA().getWed().getSubjects().set(i, objectToCompare);
-					}
-				}	
-				for (int i = 0; i < tmtbl.getWeekA().getThu().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekA().getThu().getSubjects().get(i));
-						tmtbl.getWeekA().getThu().getSubjects().set(i, objectToCompare);
-					}
-				}	
-				for (int i = 0; i < tmtbl.getWeekA().getFri().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekA().getFri().getSubjects().get(i));
-						tmtbl.getWeekA().getFri().getSubjects().set(i, objectToCompare);
-					}
-				}
-				
-				//Знаходимо всі null елементи, та замінюємо випадковим зі списку subjBuffer
-				for (int i = 0; i < tmtbl.getWeekA().getMon().getSubjects().size(); i++){
-					if (tmtbl.getWeekA().getMon().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekA().getMon().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekA().getTue().getSubjects().size(); i++){
-					if (tmtbl.getWeekA().getTue().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekA().getTue().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekA().getWed().getSubjects().size(); i++){
-					if (tmtbl.getWeekA().getWed().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekA().getWed().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekA().getThu().getSubjects().size(); i++){
-					if (tmtbl.getWeekA().getThu().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekA().getThu().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekA().getFri().getSubjects().size(); i++){
-					if (tmtbl.getWeekA().getFri().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekA().getFri().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				
-				subjBuffer.clear();
-				// те саме тільки для тижня WeekB
-				for (int i = 0; i < tmtbl.getWeekB().getMon().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekB().getMon().getSubjects().get(i));
-						tmtbl.getWeekB().getMon().getSubjects().set(i, objectToCompare);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekB().getTue().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekB().getTue().getSubjects().get(i));
-						tmtbl.getWeekB().getTue().getSubjects().set(i, objectToCompare);
-					}
-				}	
-				for (int i = 0; i < tmtbl.getWeekB().getWed().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekB().getWed().getSubjects().get(i));
-						tmtbl.getWeekB().getWed().getSubjects().set(i, objectToCompare);
-					}
-				}	
-				for (int i = 0; i < tmtbl.getWeekB().getThu().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekB().getThu().getSubjects().get(i));
-						tmtbl.getWeekB().getThu().getSubjects().set(i, objectToCompare);
-					}
-				}	
-				for (int i = 0; i < tmtbl.getWeekB().getFri().getSubjects().size(); i++){
-					if (rand.nextInt(10) < 4){
-						subjBuffer.add(tmtbl.getWeekB().getFri().getSubjects().get(i));
-						tmtbl.getWeekB().getFri().getSubjects().set(i, objectToCompare);
-					}
-				}
-				//Знаходимо всі null елементи, та замінюємо випадковим зі списку subjBuffer
-				for (int i = 0; i < tmtbl.getWeekB().getMon().getSubjects().size(); i++){
-					if (tmtbl.getWeekB().getMon().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekB().getMon().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekB().getTue().getSubjects().size(); i++){
-					if (tmtbl.getWeekB().getTue().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekB().getTue().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekB().getWed().getSubjects().size(); i++){
-					if (tmtbl.getWeekB().getWed().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekB().getWed().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekB().getThu().getSubjects().size(); i++){
-					if (tmtbl.getWeekB().getThu().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekB().getThu().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				for (int i = 0; i < tmtbl.getWeekB().getFri().getSubjects().size(); i++){
-					if (tmtbl.getWeekB().getFri().getSubjects().get(i).equals(objectToCompare)){
-						int index = getRandomSubject(subjBuffer);
-						tmtbl.getWeekB().getFri().getSubjects().set(i, subjBuffer.get(index));
-						if (subjBuffer.size() > 0)
-							subjBuffer.remove(index);
-					}
-				}
-				
-			}
+		//залишаємо половину найкращих розкладів
+		for (int i = this.timeTableArr.size()-1; i >= Config.GENERATION_SIZE / 2 ; i--){
+			this.timeTableArr.remove(i);
 		}
+		this.timeTableArr.trimToSize();
 		
+		GenerationItem child, owner1, owner2;
+		Random rand = new Random();
+		int idOwner1, idOwner2;
+		// породжуємо з 6 обраних нові особи
+		while( this.timeTableArr.size() < Config.GENERATION_SIZE ){
+			System.out.println("in while 1");
+			// вибираємо 2 індивідуальних  осіб для розмноження
+			idOwner1 = rand.nextInt(Config.GENERATION_SIZE / 2 - 1);
+			idOwner2 = rand.nextInt(Config.GENERATION_SIZE / 2 - 1);
+			
+			owner1 = new GenerationItem(this.timeTableArr.get(idOwner1).timeTable);
+			owner2 = new GenerationItem(this.timeTableArr.get(idOwner2).timeTable);
+			child = new GenerationItem(owner1.timeTable);
+
+			System.out.println("after 2 while");
+			DayOfWeek dOfw;
+			
+			for (int i = 0; i < child.timeTable.size(); i++ ){
+				System.out.println("in for");
+
+				for (int dayIndex = 1; dayIndex <=5; dayIndex++ ){
+								
+				if (rand.nextBoolean()){
+					dOfw = new DayOfWeek();
+					dOfw.getSubjects().addAll((owner2.timeTable.get(i).getWeekA().getDayById(dayIndex).getSubjects()));
+					child.timeTable.get(i).getWeekA().getDayById(dayIndex).getSubjects().clear();
+					child.timeTable.get(i).getWeekA().getDayById(dayIndex).getSubjects().addAll(dOfw.getSubjects());
+					dOfw = null;
+					dOfw = new DayOfWeek();
+					dOfw.getSubjects().addAll((owner2.timeTable.get(i).getWeekB().getDayById(dayIndex).getSubjects()));
+					child.timeTable.get(i).getWeekB().getDayById(dayIndex).getSubjects().clear();
+					child.timeTable.get(i).getWeekB().getDayById(dayIndex).getSubjects().addAll(dOfw.getSubjects());
+				} 
+				dOfw = null;
+				}
+			}
+			this.timeTableArr.add(child);
+			child = null;	
+		}
 	}
 
-	public GenerationItem crossover(ArrayList<GenerationItem> gen){
+	
+
+	
+	public void normalize(){
+		HashMap<Subject, Integer> hashMap = new HashMap<>() ;
 		
-		
-		
-		return null;
-		
-	}
+	} 	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

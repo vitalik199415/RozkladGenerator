@@ -20,7 +20,8 @@ public class OneSubject {
 		SubjectInfo subj = conn.getSubjectById(this.idSubj);
 		GroupInfo group = conn.getGroupById(this.idGroup);
 		RoomInfo room = conn.getRoomById(this.idRoom);
-		String result = " | " + group.getName() + " | " +  subj.getName()  + " | " +  teacher.getSurname()  + " | " + room.getName() + " | ";
+		String isLect = subj.getIsLection() ? "" : "Лабораторна | ";
+		String result = " | " + group.getName() + " | " +  subj.getShortName()  + " | " + isLect +  teacher.getSurname()  + " | " + room.getName() + " | ";
 	return result;
 	} 
 	
