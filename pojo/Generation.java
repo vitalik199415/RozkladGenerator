@@ -257,36 +257,26 @@ public class Generation {
 		int idOwner1, idOwner2;
 		// породжуємо з 6 обраних нові особи
 		while( this.timeTableArr.size() < Config.GENERATION_SIZE ){
-			System.out.println("in while 1");
 			// вибираємо 2 індивідуальних  осіб для розмноження
 			idOwner1 = rand.nextInt(Config.GENERATION_SIZE / 2 - 1);
 			idOwner2 = rand.nextInt(Config.GENERATION_SIZE / 2 - 1);
 			
 			owner1 = new GenerationItem(this.timeTableArr.get(idOwner1).timeTable);
 			owner2 = new GenerationItem(this.timeTableArr.get(idOwner2).timeTable);
-			child = new GenerationItem(owner1.timeTable);
+			child = new GenerationItem();
 
-			System.out.println("after 2 while");
-			DayOfWeek dOfw;
 			
-			for (int i = 0; i < child.timeTable.size(); i++ ){
-				System.out.println("in for");
-
-				for (int dayIndex = 1; dayIndex <=5; dayIndex++ ){
-								
+			for (int i = 0; i < owner1.timeTable.size(); i++ ){
 				if (rand.nextBoolean()){
-					dOfw = new DayOfWeek();
-					dOfw.getSubjects().addAll((owner2.timeTable.get(i).getWeekA().getDayById(dayIndex).getSubjects()));
-					child.timeTable.get(i).getWeekA().getDayById(dayIndex).getSubjects().clear();
-					child.timeTable.get(i).getWeekA().getDayById(dayIndex).getSubjects().addAll(dOfw.getSubjects());
-					dOfw = null;
-					dOfw = new DayOfWeek();
-					dOfw.getSubjects().addAll((owner2.timeTable.get(i).getWeekB().getDayById(dayIndex).getSubjects()));
-					child.timeTable.get(i).getWeekB().getDayById(dayIndex).getSubjects().clear();
-					child.timeTable.get(i).getWeekB().getDayById(dayIndex).getSubjects().addAll(dOfw.getSubjects());
+					child.timeTable.get(i).setWeekA(owner1.timeTable.get(i).getWeekA());
+					child.timeTable.get(i).setWeekB(owner1.timeTable.get(i).getWeekB());
+				} else {
+					child.timeTable.get(i).setWeekA(owner2.timeTable.get(i).getWeekA());
+					child.timeTable.get(i).setWeekB(owner2.timeTable.get(i).getWeekB());
 				} 
-				dOfw = null;
-				}
+					
+
+			
 			}
 			this.timeTableArr.add(child);
 			child = null;	
