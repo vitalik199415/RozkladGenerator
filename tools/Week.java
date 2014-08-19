@@ -8,6 +8,14 @@ public class Week {
 	private DayOfWeek thu;
 	private DayOfWeek fri;
 	
+	public Week(Week week){
+		this.mon = new DayOfWeek(week.getMon());
+		this.tue = new DayOfWeek(week.getTue());
+		this.wed = new DayOfWeek(week.getWed());
+		this.thu = new DayOfWeek(week.getThu());
+		this.fri = new DayOfWeek(week.getFri()); 
+	}
+	
 	public Week(){
 		this.mon = new DayOfWeek();
 		this.tue = new DayOfWeek();

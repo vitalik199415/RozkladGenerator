@@ -46,7 +46,7 @@ public class Engine {
 				possibleRoom.add(room);
 			}
 		}
-		System.out.println("pos size: "+ possibleRoom.size());
+		//System.out.println("pos size: "+ possibleRoom.size());
 		
 		if (possibleRoom.size() <= 0){
 			Random r = new Random();

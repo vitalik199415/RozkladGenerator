@@ -5,6 +5,11 @@ public class TimeTable {
 	private Week weekA;
 	private Week weekB;
 	
+	public TimeTable(){
+		weekA = new Week();
+		weekB = new Week();
+	}
+	
 	public TimeTable(int subjForDay) {
 		weekA = new Week(subjForDay);
 		weekB = new Week(subjForDay);

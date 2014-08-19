@@ -246,6 +246,13 @@ public class Generation {
 //	}
 
 	public void crossover(){
+		
+		for(int i=0; (i < this.timeTableArr.size()-1) && ( this.timeTableArr.size() > Config.GENERATION_SIZE / 2) ; i++){
+			if (this.timeTableArr.get(i).penalty > 10) {
+				this.timeTableArr.remove(i);
+			}
+		}
+		
 		//залишаємо половину найкращих розкладів
 		for (int i = this.timeTableArr.size()-1; i >= Config.GENERATION_SIZE / 2 ; i--){
 			this.timeTableArr.remove(i);
@@ -255,28 +262,29 @@ public class Generation {
 		GenerationItem child, owner1, owner2;
 		Random rand = new Random();
 		int idOwner1, idOwner2;
+		TimeTable tmtbl; 
 		// породжуємо з 6 обраних нові особи
 		while( this.timeTableArr.size() < Config.GENERATION_SIZE ){
 			// вибираємо 2 індивідуальних  осіб для розмноження
 			idOwner1 = rand.nextInt(Config.GENERATION_SIZE / 2 - 1);
 			idOwner2 = rand.nextInt(Config.GENERATION_SIZE / 2 - 1);
 			
-			owner1 = new GenerationItem(this.timeTableArr.get(idOwner1).timeTable);
-			owner2 = new GenerationItem(this.timeTableArr.get(idOwner2).timeTable);
+			owner1 = this.timeTableArr.get(idOwner1);
+			owner2 = this.timeTableArr.get(idOwner2);
 			child = new GenerationItem();
-
+			tmtbl = new TimeTable();
 			
 			for (int i = 0; i < owner1.timeTable.size(); i++ ){
 				if (rand.nextBoolean()){
-					child.timeTable.get(i).setWeekA(owner1.timeTable.get(i).getWeekA());
-					child.timeTable.get(i).setWeekB(owner1.timeTable.get(i).getWeekB());
+					tmtbl.setWeekA(owner1.timeTable.get(i).getWeekA());
+					tmtbl.setWeekB(owner1.timeTable.get(i).getWeekB());
+					owner1.penalty ++;
 				} else {
-					child.timeTable.get(i).setWeekA(owner2.timeTable.get(i).getWeekA());
-					child.timeTable.get(i).setWeekB(owner2.timeTable.get(i).getWeekB());
+					tmtbl.setWeekA(owner2.timeTable.get(i).getWeekA());
+					tmtbl.setWeekB(owner2.timeTable.get(i).getWeekB());
+					owner2.penalty++;
 				} 
-					
-
-			
+				child.timeTable.add(tmtbl);					
 			}
 			this.timeTableArr.add(child);
 			child = null;	

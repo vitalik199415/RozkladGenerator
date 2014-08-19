@@ -6,6 +6,11 @@ public class DayOfWeek {
 	
 	private ArrayList<OneSubject> subjects;
 
+	public DayOfWeek(DayOfWeek dOf){
+		this(dOf.getSubjects().size());
+		this.subjects.addAll(dOf.getSubjects());
+	}
+	
 	public DayOfWeek() {
 		this(Config.MAX_SUBJ_FOR_DAY);
 	}
