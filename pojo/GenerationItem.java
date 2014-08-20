@@ -18,6 +18,12 @@ public class GenerationItem {
 		
 	}
 	
+	public GenerationItem(GenerationItem item){
+		this.timeTable.clear();
+		this.timeTable.addAll(item.timeTable);
+		this.calculateQuality();
+	}
+	
 	public GenerationItem(ArrayList<TimeTable> tmtbl){
 		this.timeTable.clear();
 		this.timeTable.addAll(tmtbl);

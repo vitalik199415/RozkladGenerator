@@ -7,7 +7,9 @@ import tools.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 
 
 /**
@@ -47,8 +49,7 @@ public class Engine {
 			}
 		}
 		//System.out.println("pos size: "+ possibleRoom.size());
-		
-		if (possibleRoom.size() <= 0){
+		if ( possibleRoom.size() <= 0 ){
 			Random r = new Random();
 			int result;
 			do {
@@ -69,8 +70,6 @@ public class Engine {
 				idRoom = room.getId();
 			}
 		}
-		
-
 		if (this.loadRoom.get(idRoom) != null){
 			int value = this.loadRoom.get(idRoom);
 			this.loadRoom.put(idRoom, value+1);
@@ -78,9 +77,24 @@ public class Engine {
 		} else {
 			throw new Error("Ќ≈ вийшло визначити аудитор≥ю дл€ проведенн€ пари в груп≥: " + group.getId() + " " + isLection) ;
 		}
-			
+	}
+	
+	private int getRandomSubject(ArrayList<Subject> list, Boolean isOneHourInWeek){
 		
-		
+		if (isOneHourInWeek){
+			ArrayList<Subject> possibleList = new ArrayList<>(4);
+			for(Subject subj: list){
+				if (subj.getHourInWeek() == 1){
+					possibleList.add(subj);
+				}
+			}
+			if ( ! possibleList.isEmpty() ){
+				return getRandomSubject(possibleList);	
+			} else 
+				return -1;
+		} else {
+			return getRandomSubject(list);
+		}
 		
 	}
 	
@@ -110,14 +124,15 @@ public class Engine {
 	}
 	
 	public void generateStartup(){
+		
 		this.timeTable = null;
 		this.timeTable =  new ArrayList<TimeTable>(this.groupArray.size());
-		for (Integer value: this.loadRoom.values()){
-			value = 0;
+		for (Map.Entry<Integer, Integer> entry: this.loadRoom.entrySet()){
+			entry.setValue(0);
 		}
 		int idInList = 0, curDay = 0;
+		boolean inFirst = true;
 		TimeTable tmtbl;
-		boolean inFirst; // умова вибору м≥сц€ встаки предмету, €кий чергуЇтьс€
 		OneSubject oneSubj;
 		ArrayList<Subject> subjectTaughtList = new ArrayList<>(10);
 
@@ -125,10 +140,7 @@ public class Engine {
 		
 		for (Group group: this.groupArray){
 			tmtbl = new TimeTable(4);
-			inFirst = true;
-			curDay = 1;
-			
-			
+			curDay = 0;
 			subjectTaughtList.addAll(group.getSubjectsTaught());
 //			System.out.println("idGroup: "+group.getId());
 //			for (Subject s: subjectTaughtList){
@@ -136,31 +148,37 @@ public class Engine {
 //			}
 			
 			while (subjectTaughtList.size() > 0){
+				curDay++;
+//				System.out.println(tmtbl);
 				if (curDay > 5){
 					curDay = 1;
 				}
 				oneSubj = new OneSubject();
-				idInList = getRandomSubject(subjectTaughtList);
+				idInList = getRandomSubject(subjectTaughtList); 
 				oneSubj.idGroup = group.getId();
 				oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
 				oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
 				oneSubj.idRoom = getPossibleRoom(group, getIsLectionById(oneSubj.idSubj));
 				
 				if (subjectTaughtList.get(idInList).getHourInWeek() < 2){
-					if (inFirst){
-						tmtbl.getWeekA().getDayById(curDay).addSubj(oneSubj);
-					} else {
-						tmtbl.getWeekB().getDayById(curDay).addSubj(oneSubj);
-					}
-					inFirst = !inFirst; 
-					curDay++;
+					tmtbl.getWeekA().getDayById(curDay).addSubj(oneSubj);
 					subjectTaughtList.remove(idInList);
 					oneSubj = null;
+					idInList = getRandomSubject(subjectTaughtList,true); 
+					if (idInList != -1){
+						oneSubj = new OneSubject();
+						oneSubj.idGroup = group.getId();
+						oneSubj.idSubj = subjectTaughtList.get(idInList).getId();
+						oneSubj.idTeach = subjectTaughtList.get(idInList).getIdTeach();
+						oneSubj.idRoom = getPossibleRoom(group, getIsLectionById(oneSubj.idSubj));
+						tmtbl.getWeekB().getDayById(curDay).addSubj(oneSubj);
+						subjectTaughtList.remove(idInList);
+						oneSubj = null;
+					}
 					continue;
 				}
 					tmtbl.getWeekA().getDayById(curDay).addSubj(oneSubj);
 					tmtbl.getWeekB().getDayById(curDay).addSubj(oneSubj);
-					curDay++;
 					
 				if (subjectTaughtList.get(idInList).getHourInWeek() > 2){
 					subjectTaughtList.get(idInList).setHourInWeek(subjectTaughtList.get(idInList).getHourInWeek()-2);
@@ -169,6 +187,7 @@ public class Engine {
 				}
 				subjectTaughtList.remove(idInList);
 				oneSubj = null;
+				
 			}
 			this.timeTable.add(tmtbl);
 			tmtbl = null;

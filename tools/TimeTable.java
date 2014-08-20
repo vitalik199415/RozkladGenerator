@@ -24,13 +24,13 @@ public class TimeTable {
 		return weekA;
 	}
 	public void setWeekA(Week weekA) {
-		this.weekA = weekA;
+		this.weekA = new  Week(weekA);
 	}
 	public Week getWeekB() {
 		return weekB;
 	}
 	public void setWeekB(Week weekB) {
-		this.weekB = weekB;
+		this.weekB = new Week(weekB);
 	}
 
 	@Override
