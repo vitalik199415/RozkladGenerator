@@ -8,9 +8,11 @@ import tools.TimeTable;
 
 public class GenerationItem {
 	
-	public float quality = 0; // 100 - ідеальний розклад 	
+	public float 	quality = 0; 	// 100 - ідеальний розклад 	
 	
-	public byte penalty = 0;
+	public int 		penalty = 0;	// status oldest
+	
+	public float 	adaptation = 0;	// summary adaptation all items = 500
 	
 	public ArrayList<TimeTable> timeTable = new ArrayList<>();
 
@@ -49,6 +51,31 @@ public class GenerationItem {
 			result +=  tmtbl.toString();
 		}
 		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GenerationItem other = (GenerationItem) obj;
+		if (Float.floatToIntBits(adaptation) != Float
+				.floatToIntBits(other.adaptation))
+			return false;
+		if (penalty != other.penalty)
+			return false;
+		if (Float.floatToIntBits(quality) != Float
+				.floatToIntBits(other.quality))
+			return false;
+		if (timeTable == null) {
+			if (other.timeTable != null)
+				return false;
+		} else if (!timeTable.equals(other.timeTable))
+			return false;
+		return true;
 	}
 	
 	

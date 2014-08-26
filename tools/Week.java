@@ -74,6 +74,8 @@ public class Week {
 		return fri;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		String result = "";
@@ -83,6 +85,55 @@ public class Week {
 		result += "Четвер\n" + thu.toString();
 		result += "П'ятниця\n" + fri.toString();
 		return result;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fri == null) ? 0 : fri.hashCode());
+		result = prime * result + ((mon == null) ? 0 : mon.hashCode());
+		result = prime * result + ((thu == null) ? 0 : thu.hashCode());
+		result = prime * result + ((tue == null) ? 0 : tue.hashCode());
+		result = prime * result + ((wed == null) ? 0 : wed.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Week other = (Week) obj;
+		if (fri == null) {
+			if (other.fri != null)
+				return false;
+		} else if (!fri.equals(other.fri))
+			return false;
+		if (mon == null) {
+			if (other.mon != null)
+				return false;
+		} else if (!mon.equals(other.mon))
+			return false;
+		if (thu == null) {
+			if (other.thu != null)
+				return false;
+		} else if (!thu.equals(other.thu))
+			return false;
+		if (tue == null) {
+			if (other.tue != null)
+				return false;
+		} else if (!tue.equals(other.tue))
+			return false;
+		if (wed == null) {
+			if (other.wed != null)
+				return false;
+		} else if (!wed.equals(other.wed))
+			return false;
+		return true;
 	}
 
 	

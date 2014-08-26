@@ -12,7 +12,7 @@ public final class Config {
 	public static final int 	COUNT_WEEKS_IN_FIRST_SEMESTR 	= 16;
 	public static final int 	MAX_SUBJ_FOR_DAY 				= 6;
 	public static final int 	COUT_WORKS_DAY_IN_WEEK 			= 5;
-	public static final int 	GENERATION_SIZE 				= 15;
+	public static final int 	GENERATION_SIZE 				= 10;
 	
 	
 	

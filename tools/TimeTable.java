@@ -32,6 +32,7 @@ public class TimeTable {
 	public void setWeekB(Week weekB) {
 		this.weekB = new Week(weekB);
 	}
+	
 
 	@Override
 	public String toString() {
@@ -40,5 +41,27 @@ public class TimeTable {
 		result += "Тиждень B\n----------------------------------------------------------\n";
 		result += weekB.toString()+ "\n";
 		return result; 
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TimeTable other = (TimeTable) obj;
+		if (weekA == null) {
+			if (other.weekA != null)
+				return false;
+		} else if (!weekA.equals(other.weekA))
+			return false;
+		if (weekB == null) {
+			if (other.weekB != null)
+				return false;
+		} else if (!weekB.equals(other.weekB))
+			return false;
+		return true;
 	}
 }

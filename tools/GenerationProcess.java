@@ -6,17 +6,19 @@ import pojo.GenerationItem;
 public class GenerationProcess {
 
 	public static void startProcess(){
-		int iterCount = 1000;
+		int iterCount = 10000;
 		long timeout = System.currentTimeMillis();
 		GenerationItem bestTable = new GenerationItem();
 		
 		Generation gen = new Generation();
+		gen.generateFirstGeneration();
 		bestTable.timeTable.addAll(gen.timeTableArr.get(0).timeTable);
 		bestTable.quality = gen.timeTableArr.get(0).quality;
 		gen.sort();
 //		System.out.println(gen.timeTableArr.get(gen.timeTableArr.size()-1));
 		
 		while (gen.fitness() && (iterCount > 1)){
+			gen.selection();
 			gen.crossover();
 			gen.mutation();
 			gen.sort(); // ï³äğàõîâóºòüñÿ ÿê³òñü, òà ñîğòóºòüñÿ ğîçêëàä
@@ -32,9 +34,9 @@ public class GenerationProcess {
 		System.out.println("ÍÀÉÊĞÀÙÈÉ ĞÎÇÊËÀÄ:\nQUALITY: "+bestTable.quality);
 //		System.out.println("best Table size: " + bestTable.timeTable.size());
 		System.out.println(bestTable.toString());
-		
-		System.out.println("ÍÀÉÃ²ĞØÈé ĞÎÇÊËÀÄ:\nQUALITY: "+ gen.timeTableArr.get(gen.timeTableArr.size()-1).quality);
-		System.out.println(gen.timeTableArr.get(gen.timeTableArr.size()-1).toString());
+//		
+//		System.out.println("ÍÀÉÃ²ĞØÈé ĞÎÇÊËÀÄ:\nQUALITY: "+ gen.timeTableArr.get(gen.timeTableArr.size()-1).quality);
+//		System.out.println(gen.timeTableArr.get(gen.timeTableArr.size()-1).toString());
 		
 		timeout = System.currentTimeMillis()-timeout;
 		System.out.println("TimeGeneerating: "+timeout);
