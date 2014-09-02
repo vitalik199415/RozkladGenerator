@@ -7,10 +7,7 @@ import tools.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
-import java.util.Set;
-
 
 /**
  * @author Andriy
@@ -131,7 +128,7 @@ public class Engine {
 			entry.setValue(0);
 		}
 		int idInList = 0, curDay = 0;
-		boolean inFirst = true;
+//		boolean inFirst = true;
 		TimeTable tmtbl;
 		OneSubject oneSubj;
 		ArrayList<Subject> subjectTaughtList = new ArrayList<>(10);

@@ -6,7 +6,7 @@ import pojo.GenerationItem;
 public class GenerationProcess {
 
 	public static GenerationItem startProcess(){
-		int iterCount = 1000;
+		int iterCount = 10000;
 		long timeout = System.currentTimeMillis();
 		GenerationItem bestTable = new GenerationItem();
 		

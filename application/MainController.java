@@ -11,8 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.annotation.processing.FilerException;
-
 import pojo.GenerationItem;
 import tools.GenerationProcess;
 import javafx.beans.value.ChangeListener;
