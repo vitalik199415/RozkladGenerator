@@ -6,12 +6,12 @@ import pojo.GenerationItem;
 public class GenerationProcess {
 
 	public static GenerationItem startProcess(){
-		int iterCount = 10000;
+		int iterCount = 1000;
 		long timeout = System.currentTimeMillis();
 		GenerationItem bestTable = new GenerationItem();
 		
 		Generation gen = new Generation();
-		gen.generateFirstGeneration();
+//		gen.generateFirstGeneration();
 		bestTable.timeTable.addAll(gen.timeTableArr.get(0).timeTable);
 		bestTable.quality = gen.timeTableArr.get(0).quality;
 		gen.sort();

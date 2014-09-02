@@ -2,7 +2,9 @@ package application;
 
 import database.Connector;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -304,7 +306,7 @@ public class MainController implements Initializable {
 		
 		GenerationItem bestTable = new GenerationItem ();
 		bestTable = GenerationProcess.startProcess();
-		this.progressIndicator.progressProperty();
+
 		String fileName = "result";
 		File file = new File(fileName);
 		try{
@@ -318,8 +320,21 @@ public class MainController implements Initializable {
 				printWriter.write(bestTable.toString());
 			} finally{
 				printWriter.close();
-			}		
+			}	
 			
+			StringBuilder sb = new StringBuilder();
+			BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+			
+			try {
+				String s;
+				while ((s = in.readLine()) != null) {
+					sb.append(s);
+					sb.append("\n");
+				}
+			} finally {
+				in.close();
+			}
+			this.textArea.setText(sb.toString());	
 		} catch(IOException e){
 			e.printStackTrace();
 		}
