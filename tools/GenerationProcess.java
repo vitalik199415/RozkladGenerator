@@ -5,7 +5,7 @@ import pojo.GenerationItem;
 
 public class GenerationProcess {
 
-	public static void startProcess(){
+	public static GenerationItem startProcess(){
 		int iterCount = 10000;
 		long timeout = System.currentTimeMillis();
 		GenerationItem bestTable = new GenerationItem();
@@ -37,9 +37,10 @@ public class GenerationProcess {
 //		
 //		System.out.println("Õ¿…√≤–ÿ»È –Œ« À¿ƒ:\nQUALITY: "+ gen.timeTableArr.get(gen.timeTableArr.size()-1).quality);
 //		System.out.println(gen.timeTableArr.get(gen.timeTableArr.size()-1).toString());
+
 		
 		timeout = System.currentTimeMillis()-timeout;
 		System.out.println("TimeGeneerating: "+timeout);
-	}
-	
+		return bestTable;
+	}	
 }

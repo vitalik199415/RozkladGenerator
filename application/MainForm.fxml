@@ -104,7 +104,7 @@
 </Tab><Tab text="Генератор">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-<children><Button fx:id="generateBtn" layoutX="57.0" layoutY="398.0" mnemonicParsing="false" text="Згенерувати" />
+<children><Button fx:id="generateBtn" layoutX="46.0" layoutY="406.0" mnemonicParsing="false" onAction="#generateBtnClick" text="Згенерувати" /><TextArea fx:id="textArea" layoutX="34.0" layoutY="14.0" prefHeight="381.0" prefWidth="743.0" /><ProgressIndicator fx:id="progressIndecator" layoutX="154.0" layoutY="398.0" prefHeight="40.0" prefWidth="47.0" progress="0.0" />
 </children></AnchorPane>
   </content>
 </Tab>

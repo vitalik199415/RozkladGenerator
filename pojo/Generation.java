@@ -354,6 +354,10 @@ public class Generation {
 		throw new Error("Not in range");
 	}
 	
+	
+	
+	
+	
 	public void crossover(){
 		Map<Integer, Integer> prepareToOld = new HashMap<>();
 		
@@ -391,7 +395,6 @@ public class Generation {
 
 			father = new GenerationItem(this.timeTableArr.get(idFather));
 			mather = new GenerationItem(this.timeTableArr.get(idMather));
-			
 						
 			prepareToOld.put(idFather, father.penalty);
 			prepareToOld.put(idMather, mather.penalty);

@@ -2,9 +2,17 @@ package application;
 
 import database.Connector;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.annotation.processing.FilerException;
+
+import pojo.GenerationItem;
+import tools.GenerationProcess;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -14,9 +22,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class MainController implements Initializable {
@@ -69,12 +79,18 @@ public class MainController implements Initializable {
 	@FXML private ListView<String> 	selectSubjectsList;
 	@FXML private ListView<String> 	allSubjectList;
 	
+	@FXML private Button 			generateBtn;
+	@FXML private TextArea 			textArea;
+	@FXML private ProgressIndicator	progressIndicator;
+	
 	@FXML private Button 			addSubjectToList; 
 	@FXML private Button 			removeSubjectFromList; 
 	
 	private ArrayList<Integer> 		idGroupList = new ArrayList<Integer>();
 	private ArrayList<Integer> 		idSelectedSubjectList = new ArrayList<Integer>();
 	private ArrayList<Integer> 		idAllSubjectList = new ArrayList<Integer>();
+	
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -282,6 +298,31 @@ public class MainController implements Initializable {
 	public void updateRoomListView() {
 		roomListView.getItems().clear();
 		roomListView.getItems().addAll(conn.getRoomListView());
+	}
+	
+	public void generateBtnClick(){
+		
+		GenerationItem bestTable = new GenerationItem ();
+		bestTable = GenerationProcess.startProcess();
+		this.progressIndicator.progressProperty();
+		String fileName = "result";
+		File file = new File(fileName);
+		try{
+			if (!file.exists()){
+				file.createNewFile();	
+			}
+			
+			PrintWriter printWriter = new PrintWriter(file.getAbsoluteFile());
+			
+			try{
+				printWriter.write(bestTable.toString());
+			} finally{
+				printWriter.close();
+			}		
+			
+		} catch(IOException e){
+			e.printStackTrace();
+		}
 		
 	}
 }
